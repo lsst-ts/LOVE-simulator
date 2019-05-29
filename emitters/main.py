@@ -1,28 +1,23 @@
-
-import numpy as np
-from lsst.ts import salobj
-
-import json
-
-import importlib
-
-import threading
 import asyncio
-import datetime
-
+import importlib
+import threading
+from lsst.ts import salobj
 from emitter import emit_forever
 from event_emitter import emit_forever as emit_event_forever
+
 
 def add_controller_in_thread(sal_lib, loop, index):
     asyncio.set_event_loop(loop)
     controller = create_controller(sal_lib, index)
     launch_emitters_forever(controller)
 
-def create_controller(sallib, index):        
+
+def create_controller(sallib, index):
     print("make controller", sallib)
     controller = salobj.Controller(sallib, index)
 
     return controller
+
 
 def launch_emitters_forever(controller):
     """
@@ -35,10 +30,12 @@ def launch_emitters_forever(controller):
     t2 = threading.Thread(target=emit_event_forever, args=[controller, freq, loop])
     t2.start()
 
+
 def run_evt_loop(loop):
     loop.run_forever()
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     print('--main--')
     loop = asyncio.get_event_loop()
     t = threading.Thread(target=run_evt_loop, args=(loop,))
