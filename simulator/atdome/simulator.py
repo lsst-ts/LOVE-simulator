@@ -13,10 +13,18 @@ async def main():
     await salobj.set_summary_state(r, salobj.State.ENABLED)
 
     azimuth = 0
+    shutter = 'closed'
 
+    loopCount = 0
     while True:
+        loopCount += 1
         r.cmd_moveAzimuth.set(azimuth=azimuth)
-        azimuth = (azimuth+90) % 360
+        azimuth = (azimuth+50) % 360
+        if loopCount % 4 == 0.:
+            if shutter == 'closed':
+                await r.cmd_openShutter()
+            else:
+                await r.cmd_closeShutter()
         await r.cmd_moveAzimuth.start()
         await asyncio.sleep(10)
 
