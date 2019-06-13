@@ -1,5 +1,4 @@
 #!/bin/bash
-
 source .setup.sh
 
-python -u /usr/src/love/emitters/main.py
+python -u /usr/src/love/simulator/main.py
