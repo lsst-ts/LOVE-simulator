@@ -18,7 +18,7 @@ async def main():
         r.cmd_moveAzimuth.set(azimuth=azimuth)
         azimuth = (azimuth+90) % 360
         await r.cmd_moveAzimuth.start()
-        asyncio.sleep(5)
+        await asyncio.sleep(10)
 
 if __name__ == '__main__':
     print('starting loop')
