@@ -27,7 +27,6 @@ def randomize_params(data):
 
 
 def emit(controller, test_seed=None):
-    print("putting data")
     if(test_seed is not None):
         random.seed(test_seed)
     tel_names = controller.salinfo.manager.getTelemetryNames()
