@@ -1,14 +1,12 @@
 import asyncio
+import SALPY_ATDome
 from lsst.ts import salobj
 
-import SALPY_ATDome
 
 async def main():
     r = salobj.Remote(SALPY_ATDome, index=1)
 
     await r.evt_heartbeat.next(flush=True, timeout=5)
-
-
     await r.cmd_start.start(timeout=30)
     await salobj.set_summary_state(r, salobj.State.ENABLED)
 
@@ -22,9 +20,9 @@ async def main():
         azimuth = (azimuth+50) % 360
         if loopCount % 4 == 0.:
             if shutter == 'closed':
-                await r.cmd_openShutter()
+                await r.cmd_openShutter.start()
             else:
-                await r.cmd_closeShutter()
+                await r.cmd_closeShutter.start()
         await r.cmd_moveAzimuth.start()
         await asyncio.sleep(10)
 
