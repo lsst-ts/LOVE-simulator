@@ -29,7 +29,7 @@ def randomize_params(data):
 def emit(controller, test_seed=None):
     if(test_seed is not None):
         random.seed(test_seed)
-    tel_names = controller.salinfo.manager.getTelemetryNames()
+    tel_names = controller.salinfo.telemetry_names
     for tel in tel_names:
         tel_controller = getattr(controller, "tel_" + tel)
         data_output = tel_controller.DataType()

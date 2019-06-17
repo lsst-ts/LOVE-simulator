@@ -29,7 +29,7 @@ def randomize_params(data):
 def emit(controller, test_seed=None):
     if(test_seed is not None):
         random.seed(test_seed)
-    evt_names = controller.salinfo.manager.getEventNames()
+    evt_names = controller.salinfo.event_names
     for evt in evt_names:
         evt_controller = getattr(controller, "evt_" + evt)
         data_output = evt_controller.DataType()
