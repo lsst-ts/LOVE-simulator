@@ -6,9 +6,9 @@ async def main():
     domain = salobj.Domain()
     r = salobj.Remote(domain=domain, name='ATDome', index=1)
 
-    # await r.evt_heartbeat.next(flush=True, timeout=5)
     await r.cmd_start.start(timeout=30)
     await salobj.set_summary_state(r, salobj.State.ENABLED)
+    await r.evt_heartbeat.next(flush=True, timeout=5)
 
     azimuth = 0
     shutter = 'closed'
