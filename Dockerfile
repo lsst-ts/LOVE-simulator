@@ -1,14 +1,5 @@
-FROM lsstts/simulation_tests:latest
-WORKDIR /home/saluser/repos/ts_sal
-RUN source /opt/lsst/software/stack/loadLSST.bash && \
-    source /home/saluser/repos/ts_sal/setup.env && \
-    make_salpy_libs.py ATDome 
-RUN source /opt/lsst/software/stack/loadLSST.bash && \
-    source /home/saluser/repos/ts_sal/setup.env && \
-    make_salpy_libs.py ATMCS
-RUN source /opt/lsst/software/stack/loadLSST.bash && \
-    source /home/saluser/repos/ts_sal/setup.env && \
-    make_salpy_libs.py ScriptQueue
+FROM lsstts/develop-env:20190610_sal3.10.0_salobj4
+
 
 WORKDIR /usr/src/love
 COPY requirements.txt .
