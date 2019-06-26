@@ -8,8 +8,6 @@
   ],
   "ScriptQueue": [
     {
-      "csc": "ScriptQueue",
-      "display_name": "SQ1",
       "index": 1,
       "source": "emitter"
     },
