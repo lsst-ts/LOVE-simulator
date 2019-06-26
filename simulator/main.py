@@ -13,5 +13,5 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     asyncio.get_event_loop().run_until_complete(asyncio.wait([
         emitters.main(loop, config_filepath, sal_base_index),
-        atdome.main()
+        atdome.main(config_filepath, sal_base_index)
     ]))

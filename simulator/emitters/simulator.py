@@ -42,7 +42,7 @@ def read_emitters_from_config(path):
     csc_list: `[()]`
         The list of CSCs to run as a tuple with the CSC name and index
     """
-    print('Reading config file: ', path)
+    print('Emitters | Reading config file: ', path)
     data = json.load(open(path, 'r'))
     emitters_list = []
     for csc_key, csc_value in data.items():
@@ -65,10 +65,10 @@ async def main(loop, path, sal_base_index):
         The base SAL index, which is summed to every SAL index read from the config file
     """
 
-    print('\n*** Starting Emitters Loop ***')
+    print('\nEmitters | *** Starting Emitters Loop ***')
     csc_list = read_emitters_from_config(path)
-    print('List of emitters to start:', csc_list)
-    print('\nLaunching emitters:')
+    print('Emitters | List of emitters to start:', csc_list)
+    print('\nEmitters | Launching emitters:')
     for i in range(len(csc_list)):
         csc_params = csc_list[i]
         csc_name = csc_params[0]
@@ -76,6 +76,6 @@ async def main(loop, path, sal_base_index):
         if len(csc_params) > 1:
             [csc_name, index] = csc_params
         index = int(index) + sal_base_index
-        print('- Launching (CSC, index): (', csc_name, ', ', index, ')')
+        print('Emitters | - Launching (CSC, index): (', csc_name, ', ', index, ')')
         t = threading.Thread(target=add_controller_in_thread, args=[csc_name, loop, index])
         t.start()
