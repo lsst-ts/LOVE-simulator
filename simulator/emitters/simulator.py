@@ -42,7 +42,7 @@ def read_emitters_from_config(path):
     csc_list: `[()]`
         The list of CSCs to run as a tuple with the CSC name and index
     """
-    print('--- Reading config file: ', path)
+    print('Reading config file: ', path)
     data = json.load(open(path, 'r'))
     emitters_list = []
     for csc_key, csc_value in data.items():
@@ -52,27 +52,30 @@ def read_emitters_from_config(path):
     return emitters_list
 
 
-async def main(loop):
+async def main(loop, path, sal_base_index):
     """ Runs the emitters in a given loop
 
     Parameters
     ----------
     loop: `EventLoop`
         The Event loop where the simulator will be executed
+    path: `string`
+        The full path of the config file
+    sal_base_index: `int`
+        The base SAL index, which is summed to every SAL index read from the config file
     """
 
-    print('-- Starting Emitters --')
-    csc_list = read_emitters_from_config('/usr/src/love/simulator/config/config.json')
-    print('List of emitters to start: ', csc_list)
+    print('\n*** Starting Emitters Loop ***')
+    csc_list = read_emitters_from_config(path)
+    print('List of emitters to start:', csc_list)
+    print('\nLaunching emitters:')
     for i in range(len(csc_list)):
         csc_params = csc_list[i]
         csc_name = csc_params[0]
         index = 0
-        print('Processing CSC: ', csc_params)
         if len(csc_params) > 1:
             [csc_name, index] = csc_params
-        index = int(index)
-        print('CSC name: ', csc_name)
-        print('CSC index: ', index)
+        index = int(index) + sal_base_index
+        print('- Launching (CSC, index): (', csc_name, ', ', index, ')')
         t = threading.Thread(target=add_controller_in_thread, args=[csc_name, loop, index])
         t.start()
