@@ -1,0 +1,21 @@
+{
+  "ATMCS": [],
+  "ATDome": [
+    {
+      "index": 1,
+      "source": "command_sim"
+    }
+  ],
+  "ScriptQueue": [
+    {
+      "csc": "ScriptQueue",
+      "display_name": "SQ1",
+      "index": 1,
+      "source": "emitter"
+    },
+    {
+      "index": 2,
+      "source": "emitter"
+    }
+  ]
+}
