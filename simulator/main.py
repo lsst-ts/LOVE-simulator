@@ -5,7 +5,7 @@ import emitters.simulator as emitters
 
 if __name__ == '__main__':
     print('***** Starting Simulator *****')
-    config_filepath = '/usr/src/love/simulator/config/config.json'
+    config_filepath = '/usr/src/love/config/config.json'
     sal_base_index = int(os.environ.get('SAL_BASE_INDEX', 0))
     print('Using config from: ', config_filepath)
     print('Using base SAL index: ', sal_base_index)
