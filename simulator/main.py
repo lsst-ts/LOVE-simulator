@@ -2,7 +2,7 @@ import asyncio
 import os
 import atdome.simulator as atdome
 import emitters.simulator as emitters
-
+import scriptqueue.simulator as scriptqueue
 if __name__ == '__main__':
     """ Runs the emitters and simulators """
     print('***** Starting Simulator *****')
@@ -14,5 +14,6 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     asyncio.get_event_loop().run_until_complete(asyncio.wait([
         emitters.main(loop, config_filepath, sal_base_index),
-        atdome.main(config_filepath, sal_base_index)
+        atdome.main(config_filepath, sal_base_index),
+        scriptqueue.main()
     ]))
