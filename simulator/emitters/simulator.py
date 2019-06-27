@@ -1,5 +1,4 @@
 import asyncio
-import json
 import threading
 from lsst.ts import salobj
 from .emitter import emit_forever
@@ -29,44 +28,19 @@ def launch_emitters_forever(loop, controller):
     t2.start()
 
 
-def read_emitters_from_config(path):
-    """ Reads a given config file and returns the list of CSCs to run
-
-    Parameters
-    ----------
-    path: `string`
-        The full path of the config file
-
-    Returns
-    -------
-    csc_list: `[()]`
-        The list of CSCs to run as a tuple with the CSC name and index
-    """
-    print('Emitters | Reading config file: ', path)
-    data = json.load(open(path, 'r'))
-    csc_list = []
-    for csc_key, csc_value in data.items():
-        for csc_instance in csc_value:
-            if csc_instance['source'] == 'emitter':
-                csc_list.append((csc_key, csc_instance['index']))
-    return csc_list
-
-
-async def main(loop, path):
+async def main(loop, csc_list):
     """ Runs the emitters in a given loop
 
     Parameters
     ----------
     loop: `EventLoop`
         The Event loop where the simulator will be executed
-    path: `string`
-        The full path of the config file
+    csc_list: `[()]`
+        The list of CSCs to run as a tuple with the CSC name and index
     """
 
-    print('\nEmitters | *** Starting Emitters Loop ***')
-    csc_list = read_emitters_from_config(path)
-    print('Emitters | List of emitters to start:', csc_list)
-    print('\nEmitters | Launching emitters:')
+    print('\nEmitters    | *** Starting Emitters Loop ***')
+    print('\nEmitters    | Launching emitters:')
     for i in range(len(csc_list)):
         csc_params = csc_list[i]
         csc_name = csc_params[0]

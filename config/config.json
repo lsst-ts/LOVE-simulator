@@ -1,5 +1,4 @@
 {
-  "ATMCS": [],
   "ATDome": [
     {
       "index": 1,
@@ -9,11 +8,11 @@
   "ScriptQueue": [
     {
       "index": 1,
-      "source": "emitter"
+      "source": "command_sim"
     },
     {
       "index": 2,
-      "source": "emitter"
+      "source": "command_sim"
     }
   ]
 }

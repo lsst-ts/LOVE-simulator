@@ -1,16 +1,67 @@
 import asyncio
+import json
 import atdome.simulator as atdome
 import emitters.simulator as emitters
 import scriptqueue.simulator as scriptqueue
+
+
+def read_config(path, source=None, csc=None):
+    """ Reads a given config file and returns the lists of CSCs to listen to.
+    It can read the full file (by default), or read only a specific key
+
+    Parameters
+    ----------
+    path: `string`
+        The full path of the config file
+    source: `string`
+        optional source to filter, the results will only consider values with the given source
+    csc: `string`
+        optional CSC to filter, the results will only consider values with the given CSC
+
+    Returns
+    -------
+    csc_list: `[()]`
+        The list of CSCs to run as a tuple with the CSC name and index
+    """
+    data = json.load(open(path, 'r'))
+    csc_list = []
+    if csc:
+        for csc_instance in data[csc]:
+            if source and csc_instance['source'] == source:
+                csc_list.append((csc, csc_instance['index']))
+    else:
+        for csc_key, csc_value in data.items():
+            for csc_instance in csc_value:
+                if source and csc_instance['source'] == source:
+                    csc_list.append((csc_key, csc_instance['index']))
+    return csc_list
+
+
 if __name__ == '__main__':
     """ Runs the emitters and simulators """
     print('***** Starting Simulator *****')
-    config_filepath = '/usr/src/love/config/config.json'
-    print('Using config from: ', config_filepath)
+    path = '/usr/src/love/config/config.json'
+    print('Reading config file: ', path)
+    emitters_list = read_config(path, 'emitter')
+    atdome_list = read_config(path, 'command_sim', 'ATDome')
+    sq_list = read_config(path, 'command_sim', 'ScriptQueue')
+    print('List of emitters to start:', emitters_list)
+    print('List of ATDomes to start:', atdome_list)
+    print('List of ScriptQueues to start:', sq_list)
 
     loop = asyncio.get_event_loop()
-    asyncio.get_event_loop().run_until_complete(asyncio.wait([
-        emitters.main(loop, config_filepath),
-        atdome.main(config_filepath),
-        scriptqueue.main()
-    ]))
+    coroutines = []
+    if len(emitters_list) > 0:
+        coroutines.append(emitters.main(loop, emitters_list))
+    if len(atdome_list) > 0:
+        coroutines.append(atdome.main(atdome_list))
+    if len(sq_list) > 0:
+        for sq in sq_list:
+            coroutines.append(scriptqueue.main(sq[1]))
+
+    asyncio.get_event_loop().run_until_complete(asyncio.wait(coroutines))
+    # asyncio.get_event_loop().run_until_complete(asyncio.wait([
+    #     emitters.main(loop, emitters_list),
+    #     atdome.main(atdome_list),
+    #     # scriptqueue.main()
+    # ]))

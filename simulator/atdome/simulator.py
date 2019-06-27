@@ -1,50 +1,21 @@
 import asyncio
-import json
 from lsst.ts import salobj
 
 
-def read_atdome_cscs_from_config(path):
-    """ Reads a given config file and returns the list of CSCs to run
-
-    Parameters
-    ----------
-    path: `string`
-        The full path of the config file
-
-    Returns
-    -------
-    csc_list: `[()]`
-        The list of CSCs to run as a tuple with the CSC name and index
-    """
-    print('ATDome   | Reading config file: ', path)
-    data = json.load(open(path, 'r'))
-    emitters_list = []
-    for csc_key, csc_value in data.items():
-        if csc_key != 'ATDome':
-            continue
-        for csc_instance in csc_value:
-            if csc_instance['source'] == 'command_sim':
-                emitters_list.append((csc_key, csc_instance['index']))
-    return emitters_list
-
-
-async def main(path):
+async def main(csc_list):
     """ Runs the ATDome simulator
 
     Parameters
     ----------
-    path: `string`
-        The full path of the config file
+    csc_list: `[()]`
+        The list of CSCs to run as a tuple with the CSC name and index
     """
-    print('\nATDome   | **** Starting ATDome command simulator loop *****')
-    csc_list = read_atdome_cscs_from_config(path)
-    print('ATDome   | List of CSCs to start:', csc_list)
-
+    print('\nATDome      | **** Starting ATDome command simulator loop *****')
     domain = salobj.Domain()
     for csc in csc_list:
         name = csc[0]
         index = int(csc[1])
-        print('ATDome   | - Creating remote (CSC, index): (', name, ', ', index, ')')
+        print('ATDome      | - Creating remote (CSC, index): (', name, ', ', index, ')')
         r = salobj.Remote(domain=domain, name=name, index=index)
 
         await r.cmd_start.start(timeout=30)
