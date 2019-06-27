@@ -16,11 +16,13 @@ async def main():
     location = Location.LAST
 
     while True:
-        await r.cmd_add.set_start(isStandard=isStandard,
-                                  path=path,
-                                  config=config,
-                                  location=location,
-                                  timeout=timeout)
+        await r.cmd_add.set_start(
+            isStandard=isStandard,
+            path=path,
+            config=config,
+            location=location,
+            timeout=timeout
+        )
         await asyncio.sleep(10)
 
 if __name__ == '__main__':

@@ -52,7 +52,7 @@ def read_emitters_from_config(path):
     return csc_list
 
 
-async def main(loop, path, sal_base_index):
+async def main(loop, path):
     """ Runs the emitters in a given loop
 
     Parameters
@@ -61,8 +61,6 @@ async def main(loop, path, sal_base_index):
         The Event loop where the simulator will be executed
     path: `string`
         The full path of the config file
-    sal_base_index: `int`
-        The base SAL index, which is summed to every SAL index read from the config file
     """
 
     print('\nEmitters | *** Starting Emitters Loop ***')
@@ -75,7 +73,7 @@ async def main(loop, path, sal_base_index):
         index = 0
         if len(csc_params) > 1:
             [csc_name, index] = csc_params
-        index = int(index) + sal_base_index
+        index = int(index)
         print('Emitters | - Launching (CSC, index): (', csc_name, ', ', index, ')')
         t = threading.Thread(target=add_controller_in_thread, args=[csc_name, loop, index])
         t.start()

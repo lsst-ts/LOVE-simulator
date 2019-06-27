@@ -28,15 +28,13 @@ def read_atdome_cscs_from_config(path):
     return emitters_list
 
 
-async def main(path, sal_base_index):
+async def main(path):
     """ Runs the ATDome simulator
 
     Parameters
     ----------
     path: `string`
         The full path of the config file
-    sal_base_index: `int`
-        The base SAL index, which is summed to every SAL index read from the config file
     """
     print('\nATDome   | **** Starting ATDome command simulator loop *****')
     csc_list = read_atdome_cscs_from_config(path)
@@ -45,7 +43,7 @@ async def main(path, sal_base_index):
     domain = salobj.Domain()
     for csc in csc_list:
         name = csc[0]
-        index = int(csc[1]) + int(sal_base_index)
+        index = int(csc[1])
         print('ATDome   | - Creating remote (CSC, index): (', name, ', ', index, ')')
         r = salobj.Remote(domain=domain, name=name, index=index)
 
