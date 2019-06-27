@@ -27,5 +27,5 @@ async def main():
         await asyncio.sleep(10)
 
 if __name__ == '__main__':
-    print('starting atdome loop')
+    print('--------starting atdome loop----')
     asyncio.get_event_loop().run_until_complete(main())
