@@ -4,6 +4,7 @@ import atdome.simulator as atdome
 import emitters.simulator as emitters
 
 if __name__ == '__main__':
+    """ Runs the emitters and simulators """
     print('***** Starting Simulator *****')
     config_filepath = '/usr/src/love/config/config.json'
     sal_base_index = int(os.environ.get('SAL_BASE_INDEX', 0))

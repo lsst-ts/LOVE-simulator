@@ -44,12 +44,12 @@ def read_emitters_from_config(path):
     """
     print('Emitters | Reading config file: ', path)
     data = json.load(open(path, 'r'))
-    emitters_list = []
+    csc_list = []
     for csc_key, csc_value in data.items():
         for csc_instance in csc_value:
             if csc_instance['source'] == 'emitter':
-                emitters_list.append((csc_key, csc_instance['index']))
-    return emitters_list
+                csc_list.append((csc_key, csc_instance['index']))
+    return csc_list
 
 
 async def main(loop, path, sal_base_index):
