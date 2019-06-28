@@ -13,7 +13,9 @@ async def main(index):
 
     isStandard = True
     path = 'script1'
-    config = ''
+    config_path = '/usr/src/love/simulator/scriptqueue/config.yml'
+    with open(config_path, "r") as f:
+        config = f.read()
     location = Location.LAST
 
     while True:
@@ -24,7 +26,7 @@ async def main(index):
             location=location,
             timeout=timeout
         )
-        await asyncio.sleep(10)
+        await asyncio.sleep(6.5)
 
 if __name__ == '__main__':
     print('--starting scriptqueue-sim loop---')
