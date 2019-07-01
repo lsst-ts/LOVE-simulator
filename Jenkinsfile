@@ -2,12 +2,16 @@ pipeline {
   agent any
   environment {
     registryCredential = "dockerhub-inriachile"
-    dockerImageName = "inriachile/love-simulator:${GIT_BRANCH}"
-    dockerImage = ""
+    imageName = "inriachile/love-simulator:${GIT_BRANCH}"
+    atdomeImageName = "inriachile/love-atdome-sim:${GIT_BRANCH}"
+    scriptqueueImageName = "inriachile/love-scriptqueue-sim:${GIT_BRANCH}"
+    image = ""
+    atdomeimage = ""
+    scriptqueueImage = ""
   }
 
   stages {
-    stage("Build Docker image") {
+    stage("Build Simulator Docker image") {
       when {
         anyOf {
           branch "master"
@@ -16,11 +20,11 @@ pipeline {
       }
       steps {
         script {
-          dockerImage = docker.build(dockerImageName, "./")
+          image = docker.build(imageName, "./")
         }
       }
     }
-    stage("Push Docker image") {
+    stage("Push Simulator Docker image") {
       when {
         anyOf {
           branch "master"
@@ -30,7 +34,67 @@ pipeline {
       steps {
         script {
           docker.withRegistry("", registryCredential) {
-            dockerImage.push()
+            image.push()
+          }
+        }
+      }
+    }
+
+  stages {
+    stage("Build ATDome simulator Docker image") {
+      when {
+        anyOf {
+          branch "master"
+          branch "develop"
+        }
+      }
+      steps {
+        script {
+          atdomeImage = docker.build(atdomeImageName, "./")
+        }
+      }
+    }
+    stage("Push ATDome simulator Docker image") {
+      when {
+        anyOf {
+          branch "master"
+          branch "develop"
+        }
+      }
+      steps {
+        script {
+          docker.withRegistry("", registryCredential) {
+            atdomeImage.push()
+          }
+        }
+      }
+    }
+
+  stages {
+    stage("Build ScriptQueue simulator Docker image") {
+      when {
+        anyOf {
+          branch "master"
+          branch "develop"
+        }
+      }
+      steps {
+        script {
+          scriptqueueImage = docker.build(scriptqueueImageName, "./")
+        }
+      }
+    }
+    stage("Push ScriptQueue simulator Docker image") {
+      when {
+        anyOf {
+          branch "master"
+          branch "develop"
+        }
+      }
+      steps {
+        script {
+          docker.withRegistry("", registryCredential) {
+            scriptqueueImage.push()
           }
         }
       }
