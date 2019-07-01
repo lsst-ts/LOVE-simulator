@@ -14,6 +14,11 @@ pipeline {
     stage("Build Simulator Docker image") {
       when {
         anyOf {
+          changeset "simulator/**/*"
+          changeset "config/*"
+          changeset "Dockerfile"
+        }
+        anyOf {
           branch "master"
           branch "develop"
         }
@@ -26,6 +31,11 @@ pipeline {
     }
     stage("Push Simulator Docker image") {
       when {
+        anyOf {
+          changeset "simulator/**/*"
+          changeset "config/*"
+          changeset "Dockerfile"
+        }
         anyOf {
           branch "master"
           branch "develop"
@@ -43,18 +53,28 @@ pipeline {
     stage("Build ATDome simulator Docker image") {
       when {
         anyOf {
+          changeset "csc-s/atdome-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-atdome-sim"
+        }
+        anyOf {
           branch "master"
           branch "develop"
         }
       }
       steps {
         script {
-          atdomeImage = docker.build(atdomeImageName, "./")
+          atdomeImage = docker.build(atdomeImageName, "-f ./Dockerfile-atdome")
         }
       }
     }
     stage("Push ATDome simulator Docker image") {
       when {
+        anyOf {
+          changeset "csc-s/atdome-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-atdome-sim"
+        }
         anyOf {
           branch "master"
           branch "develop"
@@ -72,18 +92,28 @@ pipeline {
     stage("Build ScriptQueue simulator Docker image") {
       when {
         anyOf {
+          changeset "csc-s/scriptqueue-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-scriptqueue-sim"
+        }
+        anyOf {
           branch "master"
           branch "develop"
         }
       }
       steps {
         script {
-          scriptqueueImage = docker.build(scriptqueueImageName, "./")
+          scriptqueueImage = docker.build(scriptqueueImageName, "-f ./Dockerfile-scriptqueue")
         }
       }
     }
     stage("Push ScriptQueue simulator Docker image") {
       when {
+        anyOf {
+          changeset "csc-s/scriptqueue-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-scriptqueue-sim"
+        }
         anyOf {
           branch "master"
           branch "develop"
