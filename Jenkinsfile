@@ -40,7 +40,6 @@ pipeline {
       }
     }
 
-  stages {
     stage("Build ATDome simulator Docker image") {
       when {
         anyOf {
@@ -70,7 +69,6 @@ pipeline {
       }
     }
 
-  stages {
     stage("Build ScriptQueue simulator Docker image") {
       when {
         anyOf {
