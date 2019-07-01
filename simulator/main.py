@@ -60,8 +60,3 @@ if __name__ == '__main__':
             coroutines.append(scriptqueue.main(sq[1]))
 
     asyncio.get_event_loop().run_until_complete(asyncio.wait(coroutines))
-    # asyncio.get_event_loop().run_until_complete(asyncio.wait([
-    #     emitters.main(loop, emitters_list),
-    #     atdome.main(atdome_list),
-    #     # scriptqueue.main()
-    # ]))
