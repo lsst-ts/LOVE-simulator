@@ -26,7 +26,7 @@ pipeline {
       }
       steps {
         script {
-          image = docker.build(imageName, "./")
+          image = docker.build(imageName, ".")
         }
       }
     }
@@ -67,7 +67,7 @@ pipeline {
       }
       steps {
         script {
-          atdomeImage = docker.build(atdomeImageName, "-f ./Dockerfile-atdome")
+          atdomeImage = docker.build(atdomeImageName, "-f ./Dockerfile-atdome", ".")
         }
       }
     }
@@ -108,7 +108,7 @@ pipeline {
       }
       steps {
         script {
-          scriptqueueImage = docker.build(scriptqueueImageName, "-f ./Dockerfile-scriptqueue")
+          scriptqueueImage = docker.build(scriptqueueImageName, "-f ./Dockerfile-scriptqueue", ".")
         }
       }
     }
