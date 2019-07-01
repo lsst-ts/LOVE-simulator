@@ -17,6 +17,7 @@ pipeline {
           changeset "simulator/**/*"
           changeset "config/*"
           changeset "Dockerfile"
+          changeset "Jenkinsfile"
         }
         anyOf {
           branch "master"
@@ -35,6 +36,7 @@ pipeline {
           changeset "simulator/**/*"
           changeset "config/*"
           changeset "Dockerfile"
+          changeset "Jenkinsfile"
         }
         anyOf {
           branch "master"
@@ -56,6 +58,7 @@ pipeline {
           changeset "csc-s/atdome-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-atdome-sim"
+          changeset "Jenkinsfile"
         }
         anyOf {
           branch "master"
@@ -74,6 +77,7 @@ pipeline {
           changeset "csc-s/atdome-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-atdome-sim"
+          changeset "Jenkinsfile"
         }
         anyOf {
           branch "master"
@@ -95,6 +99,7 @@ pipeline {
           changeset "csc-s/scriptqueue-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-scriptqueue-sim"
+          changeset "Jenkinsfile"
         }
         anyOf {
           branch "master"
@@ -113,6 +118,7 @@ pipeline {
           changeset "csc-s/scriptqueue-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-scriptqueue-sim"
+          changeset "Jenkinsfile"
         }
         anyOf {
           branch "master"
