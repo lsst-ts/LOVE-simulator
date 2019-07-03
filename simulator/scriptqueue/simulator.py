@@ -29,7 +29,7 @@ async def main(index):
             timeout=timeout
         )
         await asyncio.sleep(1)
-        if counter > 10:
+        if counter > 15:
             break
 
 if __name__ == '__main__':
