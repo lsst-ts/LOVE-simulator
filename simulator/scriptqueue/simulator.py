@@ -18,7 +18,9 @@ async def main(index):
         config = f.read()
     location = Location.LAST
 
+    counter = 0
     while True:
+        counter += 1
         await r.cmd_add.set_start(
             isStandard=isStandard,
             path=path,
@@ -26,7 +28,9 @@ async def main(index):
             location=location,
             timeout=timeout
         )
-        await asyncio.sleep(6.5)
+        await asyncio.sleep(1)
+        if counter > 10:
+            break
 
 if __name__ == '__main__':
     print('--starting scriptqueue-sim loop---')
