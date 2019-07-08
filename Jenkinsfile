@@ -57,7 +57,7 @@ pipeline {
         anyOf {
           changeset "csc-s/atdome-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-atdome-sim"
+          changeset "Dockerfile-atdome"
           changeset "Jenkinsfile"
         }
         anyOf {
@@ -76,7 +76,7 @@ pipeline {
         anyOf {
           changeset "csc-s/atdome-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-atdome-sim"
+          changeset "Dockerfile-atdome"
           changeset "Jenkinsfile"
         }
         anyOf {
@@ -98,7 +98,7 @@ pipeline {
         anyOf {
           changeset "csc-s/scriptqueue-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-scriptqueue-sim"
+          changeset "Dockerfile-scriptqueue"
           changeset "Jenkinsfile"
         }
         anyOf {
@@ -117,7 +117,7 @@ pipeline {
         anyOf {
           changeset "csc-s/scriptqueue-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-scriptqueue-sim"
+          changeset "Dockerfile-scriptqueue"
           changeset "Jenkinsfile"
         }
         anyOf {
