@@ -1,6 +1,7 @@
 FROM lsstts/develop-env:20190705_sal3.10.0_salobj
 
 COPY csc-sim/scriptqueue-setup.sh /home/saluser/scriptqueue-setup.sh
+COPY csc-sim/scriptqueue.py /home/saluser/scriptqueue.py
 COPY config /home/saluser/config
 WORKDIR /home/saluser
 ENTRYPOINT ["/home/saluser/scriptqueue-setup.sh"]
