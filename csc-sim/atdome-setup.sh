@@ -20,7 +20,6 @@ setup ts_config_attcs -t current
 
 setup ts_ATDome -t $USER 
 
-cd /home/saluser/repos/ts_ATDome/bin/
-
-echo "# Starting ATDome Simulator CSC"
-python ./run_atdome.py -s -i 1
+cd /home/saluser/
+echo "# Starting ATDome Simulator CSCs for every salindex with a 'command_sim' source in the config file"
+python -u atdome.py
