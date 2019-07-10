@@ -1,6 +1,7 @@
 FROM lsstts/develop-env:20190705_sal3.10.0_salobj
 
 COPY csc-sim/atdome-setup.sh /home/saluser/atdome-setup.sh
+COPY csc-sim/atdome.py /home/saluser/atdome.py
 COPY config /home/saluser/config
 
 ENTRYPOINT ["/bin/bash", "--"]
