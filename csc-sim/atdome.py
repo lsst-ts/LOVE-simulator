@@ -15,5 +15,5 @@ if 'ATDome' in simulator_config.keys():
             csc = ATDome.ATDomeCsc(index=salindex,
                                    initial_simulation_mode=True)
             awaitables.append(csc.done_task)
+    asyncio.get_event_loop().run_until_complete(asyncio.wait(awaitables))
 
-asyncio.get_event_loop().run_until_complete(asyncio.wait(awaitables))
