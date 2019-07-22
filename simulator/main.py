@@ -25,7 +25,7 @@ def read_config(path, source=None, csc=None):
     """
     data = json.load(open(path, 'r'))
     csc_list = []
-    if csc:
+    if csc and csc in data:
         for csc_instance in data[csc]:
             if source and csc_instance['source'] == source:
                 csc_list.append((csc, csc_instance['index']))
