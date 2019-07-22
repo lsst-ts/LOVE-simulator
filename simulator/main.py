@@ -26,9 +26,12 @@ def read_config(path, source=None, csc=None):
     data = json.load(open(path, 'r'))
     csc_list = []
     if csc:
-        for csc_instance in data[csc]:
-            if source and csc_instance['source'] == source:
-                csc_list.append((csc, csc_instance['index']))
+        if csc in data:
+            for csc_instance in data[csc]:
+                if source and csc_instance['source'] == source:
+                    csc_list.append((csc, csc_instance['index']))
+        else:
+            return []
     else:
         for csc_key, csc_value in data.items():
             for csc_instance in csc_value:
@@ -44,6 +47,7 @@ if __name__ == '__main__':
     print('Reading config file: ', path)
     emitters_list = read_config(path, 'emitter')
     atdome_list = read_config(path, 'command_sim', 'ATDome')
+    print('AATOMDE LIST:', atdome_list)
     sq_list = read_config(path, 'command_sim', 'ScriptQueue')
     print('List of emitters to start:', emitters_list)
     print('List of ATDomes to start:', atdome_list)
