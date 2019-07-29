@@ -4,6 +4,7 @@ import atdome.simulator as atdome
 import emitters.simulator as emitters
 import scriptqueue.simulator as scriptqueue
 import summaryState.simulator as summaryState
+import testcsc.simulator as testCsc
 
 
 def read_config(path, source=None, csc=None):
@@ -66,4 +67,5 @@ if __name__ == '__main__':
             coroutines.append(scriptqueue.main(sq[1]))
         coroutines.append(summaryState.simulate_many(sq_list))
 
+    coroutines.append(testCsc.main())
     asyncio.get_event_loop().run_until_complete(asyncio.wait(coroutines))

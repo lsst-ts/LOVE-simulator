@@ -11,7 +11,7 @@ async def make_error():
         traceback = "Traceback for error code"
         csc.fault(code=code, report=report, traceback=traceback)
         await asyncio.sleep(5)
-    
+
 
 loop = asyncio.get_event_loop()
 
