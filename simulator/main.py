@@ -49,11 +49,13 @@ if __name__ == '__main__':
     print('Reading config file: ', path)
     emitters_list = read_config(path, 'emitter')
     atdome_list = read_config(path, 'command_sim', 'ATDome')
-    print('AATOMDE LIST:', atdome_list)
     sq_list = read_config(path, 'command_sim', 'ScriptQueue')
+    testcsc_list = read_config(path, 'command_sim', 'Test')
+
     print('List of emitters to start:', emitters_list)
     print('List of ATDomes to start:', atdome_list)
     print('List of ScriptQueues to start:', sq_list)
+    print('List of TestCSCs to start:', testcsc_list)
 
     loop = asyncio.get_event_loop()
     coroutines = []
@@ -66,6 +68,8 @@ if __name__ == '__main__':
         for sq in sq_list:
             coroutines.append(scriptqueue.main(sq[1]))
         coroutines.append(summaryState.simulate_many(sq_list))
+    if len(testcsc_list) > 0:
+        for testcsc in testcsc_list:
+            coroutines.append(testCsc.main(testcsc[1]))
 
-    coroutines.append(testCsc.main())
     asyncio.get_event_loop().run_until_complete(asyncio.wait(coroutines))

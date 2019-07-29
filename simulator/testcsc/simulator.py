@@ -2,9 +2,9 @@ import asyncio
 from lsst.ts import salobj
 
 
-async def main():
+async def main(salindex):
     d = salobj.Domain()
-    r = salobj.Remote(d, 'Test', 1)
+    r = salobj.Remote(d, 'Test', salindex)
 
     cmds = [
         r.cmd_enable,
@@ -22,4 +22,4 @@ async def main():
 
 
 if __name__ == '__main__':
-    asyncio.get_event_loop().run_until_complete(main())
+    asyncio.get_event_loop().run_until_complete(main(1))
