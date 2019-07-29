@@ -17,8 +17,9 @@ async def main():
             try:
                 await command.start()
             except Exception as e:
-                print(e)
+                print('Test CSC error:', e)
             await asyncio.sleep(5)
 
 
-asyncio.get_event_loop().run_until_complete(main())
+if __name__ == '__main__':
+    asyncio.get_event_loop().run_until_complete(main())
