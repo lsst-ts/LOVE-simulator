@@ -1,17 +1,88 @@
+# Most of this was adapted from https://github.com/lsst-ts/ts_salobj/blob/develop/tests/test_csc.py
 import asyncio
 import json
 from lsst.ts import salobj
+import logging
+
+STD_TIMEOUT = 15  # timeout for command ack
+LONG_TIMEOUT = 30  # timeout for CSCs to start
+EVENT_DELAY = 0.1  # time for events to be output as a result of a command
+NODATA_TIMEOUT = 0.1  # timeout for when we expect no new data
+SHOW_LOG_MESSAGES = False
 
 
-async def launch(salindex):
-    csc = salobj.TestCsc(index=salindex)
-    asyncio.ensure_future(csc.done_task)
-    while True:
+class FailedCallbackCsc(salobj.TestCsc):
+    """A CSC whose do_wait command raises a RuntimeError"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.exc_msg = "do_wait raised an exception on purpose"
+
+    async def do_wait(self, data):
+        raise RuntimeError(self.exc_msg)
+
+
+class LogMessagesMock():
+    """Triggers logMessages and errorCode events in a TestCSC """
+
+    def __init__(self, salindex, *args, **kwargs):
+        self.csc = FailedCallbackCsc(index=salindex, *args, **kwargs)
+        d = salobj.Domain()
+        self.r = salobj.Remote(d, 'Test', salindex)
+
+    async def set_log_level(self):
+        await self.r.cmd_setLogLevel.set_start(level=logging.DEBUG, timeout=STD_TIMEOUT)
+
+    def log_info_message(self):
+        info_message = "test info message"
+        self.csc.log.info(info_message)
+
+    def log_warn_message(self):
+        warn_message = "test warn message"
+        self.csc.log.warning(warn_message)
+
+    async def log_error_message(self):
+        with salobj.assertRaisesAckError():
+            await self.r.cmd_wait.set_start(duration=5, timeout=STD_TIMEOUT)
+
+    async def printmessage(self):
+        msg = await self.r.evt_logMessage.next(flush=False, timeout=STD_TIMEOUT)
+        print('\nmsg:', msg.message, '\nlvl:', msg.level, '\ntrace:', msg.traceback)
+
+    def fault(self):
         code = 52
         report = "Report for error code"
         traceback = "Traceback for error code"
-        csc.fault(code=code, report=report, traceback=traceback)
-        await asyncio.sleep(5)
+        self.csc.fault(code=code, report=report, traceback=traceback)
+
+
+async def launch(salindex, debug=False):
+    mock = LogMessagesMock(salindex, initial_state=salobj.State.ENABLED)
+    asyncio.ensure_future(mock.csc.done_task)
+    await mock.set_log_level()
+    logmessages = [
+        mock.log_info_message,
+        mock.log_warn_message,
+        mock.log_error_message
+    ]
+
+    counter = 1
+
+    while True:
+        for index, message in enumerate(logmessages):
+            if index == 2:
+                await message()
+            else:
+                message()
+            if debug:
+                while True:
+                    try:
+                        await mock.printmessage()
+                    except asyncio.TimeoutError:
+                        break
+            await asyncio.sleep(0.5)
+        if counter % 10 == 0:
+            mock.fault()
 
 simulator_config_path = '/home/saluser/config/config.json'
 with open(simulator_config_path) as f:
@@ -22,6 +93,6 @@ if 'Test' in simulator_config.keys():
         if testcsc_config['source'] == 'command_sim':
             salindex = testcsc_config['index']
             print('Test CSC | Launching salindex = {}'.format(salindex))
-            awaitables.append(launch(salindex))
+            awaitables.append(launch(salindex, True))
 
 asyncio.get_event_loop().run_until_complete(asyncio.wait(awaitables))
