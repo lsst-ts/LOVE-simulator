@@ -29,12 +29,13 @@ class LogMessagesMock():
         self.csc = FailedCallbackCsc(index=salindex, *args, **kwargs)
         d = salobj.Domain()
         self.r = salobj.Remote(d, 'Test', salindex)
+        self.salindex = salindex
 
     async def set_log_level(self):
         await self.r.cmd_setLogLevel.set_start(level=logging.DEBUG, timeout=STD_TIMEOUT)
 
     def log_info_message(self):
-        info_message = "test info message"
+        info_message = "test info message for Test-{}".format(self.salindex,)
         self.csc.log.info(info_message)
 
     def log_warn_message(self):
@@ -47,7 +48,7 @@ class LogMessagesMock():
 
     async def printmessage(self):
         msg = await self.r.evt_logMessage.next(flush=False, timeout=STD_TIMEOUT)
-        print('\nmsg:', msg.message, '\nlvl:', msg.level, '\ntrace:', msg.traceback)
+        print('\n TestCSC', self.salindex, ' | msg:', msg.message, '\nlvl:', msg.level, '\ntrace:', msg.traceback)
 
     def fault(self):
         code = 52
