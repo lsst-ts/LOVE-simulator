@@ -8,7 +8,6 @@ async def main(salindex):
 
     cmds = [
         r.cmd_enable,
-        r.cmd_fault,
         r.cmd_standby,
         r.cmd_start,
     ]

@@ -16,7 +16,7 @@ class FailedCallbackCsc(salobj.TestCsc):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.exc_msg = "do_wait raised an exception on purpose"
+        self.exc_msg = "do_wait raised an exception on purpose on Test-".format(kwargs["index"])
 
     async def do_wait(self, data):
         raise RuntimeError(self.exc_msg)
@@ -39,7 +39,7 @@ class LogMessagesMock():
         self.csc.log.info(info_message)
 
     def log_warn_message(self):
-        warn_message = "test warn message"
+        warn_message = "test warn message for Test-{}".format(self.salindex,)
         self.csc.log.warning(warn_message)
 
     async def log_error_message(self):
@@ -52,8 +52,8 @@ class LogMessagesMock():
 
     def fault(self):
         code = 52
-        report = "Report for error code"
-        traceback = "Traceback for error code"
+        report = "Report for error code for Test-{}".format(self.salindex,)
+        traceback = "Traceback for error code for Test-{}".format(self.salindex,)
         self.csc.fault(code=code, report=report, traceback=traceback)
 
 
@@ -81,9 +81,9 @@ async def launch(salindex, debug=False):
                         await mock.printmessage()
                     except asyncio.TimeoutError:
                         break
-            await asyncio.sleep(0.5)
-        if counter % 10 == 0:
-            mock.fault()
+            await asyncio.sleep(1)
+            if counter % 5 == 0:
+                mock.fault()
 
 simulator_config_path = '/home/saluser/config/config.json'
 with open(simulator_config_path) as f:
