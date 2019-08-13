@@ -12,14 +12,25 @@ SHOW_LOG_MESSAGES = False
 
 
 class FailedCallbackCsc(salobj.TestCsc):
-    """A CSC whose do_wait command raises a RuntimeError"""
+    """A CSC whose do_wait command raises a RuntimeError and whose do_fault command includes a report"""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.exc_msg = "do_wait raised an exception on purpose on Test-".format(kwargs["index"])
+        self.exc_msg = "do_wait raised an exception on purpose on Test-{}".format(kwargs["index"])
+        self.index = kwargs["index"]
 
     async def do_wait(self, data):
         raise RuntimeError(self.exc_msg)
+
+    async def do_fault(self, data):
+        """Execute the fault command with a report, code and traceback.
+        Change the summary state to State.FAULT
+        """
+        self.log.warning("Executing fault on Test-{}".format(self.index))
+        code = 52
+        report = "Report for error code for Test-{}".format(self.index,)
+        traceback = "Traceback for error code for Test-{}".format(self.index,)
+        self.fault(code=code, report=report, traceback=traceback)
 
 
 class LogMessagesMock():
@@ -50,12 +61,6 @@ class LogMessagesMock():
         msg = await self.r.evt_logMessage.next(flush=False, timeout=STD_TIMEOUT)
         print('\n TestCSC', self.salindex, ' | msg:', msg.message, '\nlvl:', msg.level, '\ntrace:', msg.traceback)
 
-    def fault(self):
-        code = 52
-        report = "Report for error code for Test-{}".format(self.salindex,)
-        traceback = "Traceback for error code for Test-{}".format(self.salindex,)
-        self.csc.fault(code=code, report=report, traceback=traceback)
-
 
 async def launch(salindex, debug=False):
     mock = LogMessagesMock(salindex, initial_state=salobj.State.ENABLED)
@@ -82,9 +87,7 @@ async def launch(salindex, debug=False):
                     except asyncio.TimeoutError:
                         break
             counter += 1
-            await asyncio.sleep(1)
-            if counter % 5 == 0:
-                mock.fault()
+            await asyncio.sleep(5)
 
 simulator_config_path = '/home/saluser/config/config.json'
 with open(simulator_config_path) as f:
