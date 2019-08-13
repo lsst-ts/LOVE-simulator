@@ -8,6 +8,7 @@ pipeline {
     image = ""
     atdomeimage = ""
     scriptqueueImage = ""
+    testCSCImage = ""
   }
 
   stages {
@@ -88,6 +89,47 @@ pipeline {
         script {
           docker.withRegistry("", registryCredential) {
             atdomeImage.push()
+          }
+        }
+      }
+    }
+
+    stage("Build TestCSC simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc-sim/testcsc-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-testcsc"
+          changeset "Jenkinsfile"
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+        }
+      }
+      steps {
+        script {
+          testCSCImage = docker.build(atdomeImageName, "-f ./Dockerfile-testcsc .")
+        }
+      }
+    }
+    stage("Push TestCSC simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc-sim/testcsc-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-testcsc"
+          changeset "Jenkinsfile"
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+        }
+      }
+      steps {
+        script {
+          docker.withRegistry("", registryCredential) {
+            testCSCImage.push()
           }
         }
       }
