@@ -81,6 +81,7 @@ async def launch(salindex, debug=False):
                         await mock.printmessage()
                     except asyncio.TimeoutError:
                         break
+            counter += 1
             await asyncio.sleep(1)
             if counter % 5 == 0:
                 mock.fault()
@@ -96,4 +97,4 @@ if 'Test' in simulator_config.keys():
             print('Test CSC | Launching salindex = {}'.format(salindex))
             awaitables.append(launch(salindex, True))
 
-asyncio.get_event_loop().run_until_complete(asyncio.wait(awaitables))
+    asyncio.get_event_loop().run_until_complete(asyncio.wait(awaitables))
