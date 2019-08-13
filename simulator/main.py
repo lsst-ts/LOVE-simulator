@@ -3,7 +3,6 @@ import json
 import atdome.simulator as atdome
 import emitters.simulator as emitters
 import scriptqueue.simulator as scriptqueue
-import summaryState.simulator as summaryState
 import testcsc.simulator as testCsc
 
 
@@ -63,11 +62,9 @@ if __name__ == '__main__':
         coroutines.append(emitters.main(loop, emitters_list))
     if len(atdome_list) > 0:
         coroutines.append(atdome.main(atdome_list))
-        coroutines.append(summaryState.simulate_many(atdome_list))
     if len(sq_list) > 0:
         for sq in sq_list:
             coroutines.append(scriptqueue.main(sq[1]))
-        coroutines.append(summaryState.simulate_many(sq_list))
     if len(testcsc_list) > 0:
         for testcsc in testcsc_list:
             coroutines.append(testCsc.main(testcsc[1]))
