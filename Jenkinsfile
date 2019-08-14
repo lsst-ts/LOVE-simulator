@@ -5,8 +5,9 @@ pipeline {
     imageName = "inriachile/love-simulator:${GIT_BRANCH}"
     atdomeImageName = "inriachile/love-atdome-sim:${GIT_BRANCH}"
     scriptqueueImageName = "inriachile/love-scriptqueue-sim:${GIT_BRANCH}"
+    testCSCImageName = "inriachile/love-testcsc-sim:${GIT_BRANCH}"
     image = ""
-    atdomeimage = ""
+    atdomeImage = ""
     scriptqueueImage = ""
     testCSCImage = ""
   }
@@ -109,7 +110,7 @@ pipeline {
       }
       steps {
         script {
-          testCSCImage = docker.build(atdomeImageName, "-f ./Dockerfile-testcsc .")
+          testCSCImage = docker.build(testCSCImageName, "-f ./Dockerfile-testcsc .")
         }
       }
     }
