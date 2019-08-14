@@ -23,10 +23,22 @@ pipeline {
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
         script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release") {
+              image_tag = git_tag
+            }
+          }
+          imageName = imageName + image_tag
           image = docker.build(imageName, ".")
         }
       }
@@ -42,6 +54,7 @@ pipeline {
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
@@ -64,10 +77,22 @@ pipeline {
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
         script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release") {
+              image_tag = git_tag
+            }
+          }
+          atdomeImageName = atdomeImageName + image_tag
           atdomeImage = docker.build(atdomeImageName, "-f ./Dockerfile-atdome .")
         }
       }
@@ -83,6 +108,7 @@ pipeline {
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
@@ -105,11 +131,23 @@ pipeline {
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
         script {
-          testCSCImage = docker.build(atdomeImageName, "-f ./Dockerfile-testcsc .")
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release") {
+              image_tag = git_tag
+            }
+          }
+          testCSCImage = testCSCImage + image_tag
+          testCSCImage = docker.build(testCSCImage, "-f ./Dockerfile-testcsc .")
         }
       }
     }
@@ -124,6 +162,7 @@ pipeline {
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
@@ -146,10 +185,22 @@ pipeline {
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
         script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release") {
+              image_tag = git_tag
+            }
+          }
+          scriptqueueImage = scriptqueueImage + image_tag
           scriptqueueImage = docker.build(scriptqueueImageName, "-f ./Dockerfile-scriptqueue .")
         }
       }
@@ -165,6 +216,7 @@ pipeline {
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
