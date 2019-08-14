@@ -2,11 +2,12 @@ pipeline {
   agent any
   environment {
     registryCredential = "dockerhub-inriachile"
-    imageName = "inriachile/love-simulator:${GIT_BRANCH}"
-    atdomeImageName = "inriachile/love-atdome-sim:${GIT_BRANCH}"
-    scriptqueueImageName = "inriachile/love-scriptqueue-sim:${GIT_BRANCH}"
+    imageName = "inriachile/love-simulator:"
+    atdomeImageName = "inriachile/love-atdome-sim:"
+    scriptqueueImageName = "inriachile/love-scriptqueue-sim:"
+    testCSCImageName = "inriachile/love-testcsc-sim:"
     image = ""
-    atdomeimage = ""
+    atdomeImage = ""
     scriptqueueImage = ""
     testCSCImage = ""
   }
@@ -146,8 +147,8 @@ pipeline {
               image_tag = git_tag
             }
           }
-          testCSCImage = testCSCImage + image_tag
-          testCSCImage = docker.build(testCSCImage, "-f ./Dockerfile-testcsc .")
+          testCSCImageName = testCSCImageName + image_tag
+          testCSCImage = docker.build(testCSCImageName, "-f ./Dockerfile-testcsc .")
         }
       }
     }
@@ -200,7 +201,7 @@ pipeline {
               image_tag = git_tag
             }
           }
-          scriptqueueImage = scriptqueueImage + image_tag
+          scriptqueueImageName = scriptqueueImageName + image_tag
           scriptqueueImage = docker.build(scriptqueueImageName, "-f ./Dockerfile-scriptqueue .")
         }
       }
