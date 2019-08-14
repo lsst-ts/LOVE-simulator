@@ -27,15 +27,18 @@ async def main(csc_list):
 
         loopCount = 0
         while True:
-            loopCount += 1
-            r.cmd_moveAzimuth.set(azimuth=azimuth)
-            azimuth = (azimuth+50) % 360
-            if loopCount % 4 == 0.:
-                if shutter == 'closed':
-                    await r.cmd_openShutter.start()
-                else:
-                    await r.cmd_closeShutter.start()
-            await r.cmd_moveAzimuth.start()
+            try:
+                loopCount += 1
+                r.cmd_moveAzimuth.set(azimuth=azimuth)
+                azimuth = (azimuth+50) % 360
+                if loopCount % 4 == 0.:
+                    if shutter == 'closed':
+                        await r.cmd_openShutter.start()
+                    else:
+                        await r.cmd_closeShutter.start()
+                await r.cmd_moveAzimuth.start()
+            except Exception as e:
+                print(e)
             await asyncio.sleep(10)
 
 if __name__ == '__main__':

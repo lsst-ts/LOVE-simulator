@@ -8,6 +8,7 @@ pipeline {
     image = ""
     atdomeimage = ""
     scriptqueueImage = ""
+    testCSCImage = ""
   }
 
   stages {
@@ -55,7 +56,7 @@ pipeline {
     stage("Build ATDome simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-s/atdome-setup.sh"
+          changeset "csc-sim/atdome-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-atdome"
           changeset "Jenkinsfile"
@@ -74,7 +75,7 @@ pipeline {
     stage("Push ATDome simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-s/atdome-setup.sh"
+          changeset "csc-sim/atdome-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-atdome"
           changeset "Jenkinsfile"
@@ -93,10 +94,51 @@ pipeline {
       }
     }
 
+    stage("Build TestCSC simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc-sim/testcsc-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-testcsc"
+          changeset "Jenkinsfile"
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+        }
+      }
+      steps {
+        script {
+          testCSCImage = docker.build(atdomeImageName, "-f ./Dockerfile-testcsc .")
+        }
+      }
+    }
+    stage("Push TestCSC simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc-sim/testcsc-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-testcsc"
+          changeset "Jenkinsfile"
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+        }
+      }
+      steps {
+        script {
+          docker.withRegistry("", registryCredential) {
+            testCSCImage.push()
+          }
+        }
+      }
+    }
+
     stage("Build ScriptQueue simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-s/scriptqueue-setup.sh"
+          changeset "csc-sim/scriptqueue-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-scriptqueue"
           changeset "Jenkinsfile"
@@ -115,7 +157,7 @@ pipeline {
     stage("Push ScriptQueue simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-s/scriptqueue-setup.sh"
+          changeset "csc-sim/scriptqueue-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-scriptqueue"
           changeset "Jenkinsfile"

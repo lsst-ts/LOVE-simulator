@@ -1,0 +1,7 @@
+FROM lsstts/develop-env:20190705_sal3.10.0_salobj
+
+COPY csc-sim/testcsc-setup.sh /home/saluser/testcsc-setup.sh
+COPY csc-sim/testcsc.py /home/saluser/testcsc.py
+COPY config /home/saluser/config
+WORKDIR /home/saluser
+ENTRYPOINT ["/home/saluser/testcsc-setup.sh"]
