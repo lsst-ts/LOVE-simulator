@@ -20,6 +20,9 @@ pipeline {
           changeset "config/*"
           changeset "Dockerfile"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
@@ -51,6 +54,9 @@ pipeline {
           changeset "config/*"
           changeset "Dockerfile"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
@@ -74,6 +80,9 @@ pipeline {
           changeset "config/*"
           changeset "Dockerfile-atdome"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
@@ -105,6 +114,9 @@ pipeline {
           changeset "config/*"
           changeset "Dockerfile-atdome"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
@@ -128,6 +140,9 @@ pipeline {
           changeset "config/*"
           changeset "Dockerfile-testcsc"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
@@ -159,6 +174,9 @@ pipeline {
           changeset "config/*"
           changeset "Dockerfile-testcsc"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
@@ -182,6 +200,9 @@ pipeline {
           changeset "config/*"
           changeset "Dockerfile-scriptqueue"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
@@ -213,6 +234,9 @@ pipeline {
           changeset "config/*"
           changeset "Dockerfile-scriptqueue"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
