@@ -2,10 +2,10 @@ pipeline {
   agent any
   environment {
     registryCredential = "dockerhub-inriachile"
-    imageName = "inriachile/love-simulator:"
-    atdomeImageName = "inriachile/love-atdome-sim:"
-    scriptqueueImageName = "inriachile/love-scriptqueue-sim:"
-    testCSCImageName = "inriachile/love-testcsc-sim:"
+    imageName = "lsstts/love-simulator:"
+    atdomeImageName = "lsstts/love-atdome-sim:"
+    scriptqueueImageName = "lsstts/love-scriptqueue-sim:"
+    testCSCImageName = "lsstts/love-testcsc-sim:"
     image = ""
     atdomeImage = ""
     scriptqueueImage = ""
