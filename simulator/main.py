@@ -59,14 +59,14 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     coroutines = []
     if len(emitters_list) > 0:
-        coroutines.append(emitters.main(loop, emitters_list))
+        loop.create_task(emitters.main(loop, emitters_list))
     if len(atdome_list) > 0:
-        coroutines.append(atdome.main(atdome_list))
+        loop.create_task(atdome.main(atdome_list))
     if len(sq_list) > 0:
         for sq in sq_list:
-            coroutines.append(scriptqueue.main(sq[1]))
+            loop.create_task(scriptqueue.main(sq[1]))
     if len(testcsc_list) > 0:
         for testcsc in testcsc_list:
-            coroutines.append(testCsc.main(testcsc[1]))
+            loop.create_task(testCsc.main(testcsc[1]))
 
-    asyncio.get_event_loop().run_until_complete(asyncio.wait(coroutines))
+    loop.run_forever()
