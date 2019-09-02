@@ -21,13 +21,16 @@ async def main(index):
     counter = 0
     while True:
         counter += 1
-        await r.cmd_add.set_start(
-            isStandard=isStandard,
-            path=path,
-            config=config,
-            location=location,
-            timeout=timeout
-        )
+        try:
+            await r.cmd_add.set_start(
+                isStandard=isStandard,
+                path=path,
+                config=config,
+                location=location,
+                timeout=timeout
+            )
+        except Exception as e:
+            print(e)
         await asyncio.sleep(1)
         if counter > 15:
             break

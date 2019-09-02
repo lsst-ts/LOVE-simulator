@@ -3,6 +3,7 @@ import json
 import atdome.simulator as atdome
 import emitters.simulator as emitters
 import scriptqueue.simulator as scriptqueue
+import testcsc.simulator as testCsc
 
 
 def read_config(path, source=None, csc=None):
@@ -47,11 +48,13 @@ if __name__ == '__main__':
     print('Reading config file: ', path)
     emitters_list = read_config(path, 'emitter')
     atdome_list = read_config(path, 'command_sim', 'ATDome')
-    print('AATOMDE LIST:', atdome_list)
     sq_list = read_config(path, 'command_sim', 'ScriptQueue')
+    testcsc_list = read_config(path, 'command_sim', 'Test')
+
     print('List of emitters to start:', emitters_list)
     print('List of ATDomes to start:', atdome_list)
     print('List of ScriptQueues to start:', sq_list)
+    print('List of TestCSCs to start:', testcsc_list)
 
     loop = asyncio.get_event_loop()
     coroutines = []
@@ -62,5 +65,8 @@ if __name__ == '__main__':
     if len(sq_list) > 0:
         for sq in sq_list:
             loop.create_task(scriptqueue.main(sq[1]))
+    if len(testcsc_list) > 0:
+        for testcsc in testcsc_list:
+            loop.create_task(testCsc.main(testcsc[1]))
 
     loop.run_forever()

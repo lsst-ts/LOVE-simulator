@@ -2,12 +2,14 @@ pipeline {
   agent any
   environment {
     registryCredential = "dockerhub-inriachile"
-    imageName = "inriachile/love-simulator:${GIT_BRANCH}"
-    atdomeImageName = "inriachile/love-atdome-sim:${GIT_BRANCH}"
-    scriptqueueImageName = "inriachile/love-scriptqueue-sim:${GIT_BRANCH}"
+    imageName = "lsstts/love-simulator:"
+    atdomeImageName = "lsstts/love-atdome-sim:"
+    scriptqueueImageName = "lsstts/love-scriptqueue-sim:"
+    testCSCImageName = "lsstts/love-testcsc-sim:"
     image = ""
-    atdomeimage = ""
+    atdomeImage = ""
     scriptqueueImage = ""
+    testCSCImage = ""
   }
 
   stages {
@@ -18,14 +20,29 @@ pipeline {
           changeset "config/*"
           changeset "Dockerfile"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
         script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release") {
+              image_tag = git_tag
+            }
+          }
+          imageName = imageName + image_tag
           image = docker.build(imageName, ".")
         }
       }
@@ -37,10 +54,14 @@ pipeline {
           changeset "config/*"
           changeset "Dockerfile"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
@@ -55,18 +76,33 @@ pipeline {
     stage("Build ATDome simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-s/atdome-setup.sh"
+          changeset "csc-sim/atdome-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-atdome"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
         script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release") {
+              image_tag = git_tag
+            }
+          }
+          atdomeImageName = atdomeImageName + image_tag
           atdomeImage = docker.build(atdomeImageName, "-f ./Dockerfile-atdome .")
         }
       }
@@ -74,14 +110,18 @@ pipeline {
     stage("Push ATDome simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-s/atdome-setup.sh"
+          changeset "csc-sim/atdome-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-atdome"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
@@ -93,21 +133,96 @@ pipeline {
       }
     }
 
-    stage("Build ScriptQueue simulator Docker image") {
+    stage("Build TestCSC simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-s/scriptqueue-setup.sh"
+          changeset "csc-sim/testcsc-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-scriptqueue"
+          changeset "Dockerfile-testcsc"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
         script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release") {
+              image_tag = git_tag
+            }
+          }
+          testCSCImageName = testCSCImageName + image_tag
+          testCSCImage = docker.build(testCSCImageName, "-f ./Dockerfile-testcsc .")
+        }
+      }
+    }
+    stage("Push TestCSC simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc-sim/testcsc-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-testcsc"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "release/*"
+        }
+      }
+      steps {
+        script {
+          docker.withRegistry("", registryCredential) {
+            testCSCImage.push()
+          }
+        }
+      }
+    }
+
+    stage("Build ScriptQueue simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc-sim/scriptqueue-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-scriptqueue"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "release/*"
+        }
+      }
+      steps {
+        script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release") {
+              image_tag = git_tag
+            }
+          }
+          scriptqueueImageName = scriptqueueImageName + image_tag
           scriptqueueImage = docker.build(scriptqueueImageName, "-f ./Dockerfile-scriptqueue .")
         }
       }
@@ -115,14 +230,18 @@ pipeline {
     stage("Push ScriptQueue simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-s/scriptqueue-setup.sh"
+          changeset "csc-sim/scriptqueue-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-scriptqueue"
           changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
         }
         anyOf {
           branch "master"
           branch "develop"
+          branch "release/*"
         }
       }
       steps {
