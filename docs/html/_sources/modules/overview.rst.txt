@@ -2,21 +2,19 @@
 Overview
 ========
 
-The LOVE-manager is part of the LSST Operation and Visualization Environment (L.O.V.E.) project.
-It is written in Python using both Django Rest Framework (DRF) and Django Channels.
+The LOVE-simulator is part of the LSST Operation and Visualization Environment (L.O.V.E.) project and it is written in Python.
+The LOVE-simulator defines a set of CSC simulation tools to be used for development/demonstration purposes. Therefore, it is only used in development deployment stacks and not in real operations.
 
-The LOVE-manager is an intermediary between the LOVE-producer and the LOVE-frontend.
-It handles websockets connections and redirect messages to subscribers following the Django Channels consumers and groups workflow.
-It also provides an API for token-based authentication and authorization.
+In short, the LOVE-simulator is used to simulate some of the CSCs of the LSST, enabling the LOVE-producer to get simulated data through SAL:
 
-.. image:: ../assets/Manager_Overview.svg
+.. image:: ../assets/Simulator_Overview.svg
 
-As shown in the figure, the LOVE-frontend sends access credentials to LOVE-manager, which replies with an access token. The LOVE-frontend then uses that token for every further communication.
-The LOVE-frontend establishes a websocket connection with the LOVE-manager using the access token. Through that connection LOVE-frontend instances subscribe to different communication groups.
-A communication group works as a pipe where every message sent to the group is forwarded to all the subscribers of the group. Therefore, once a client (or LOVE-frontend instance) has subscribed to a group the LOVE-manager will forward to the client any message that is sent to that group.
+As shown in the figure above, there are different software instances interacting with SAL:
 
-The LOVE-manager also receives all the data sent by the LOVE-producer, which includes telemetries, events and command acknowledgements. When the LOVE-manager receives a particular telemetry or event, it redirects the message to all the clients that have subscribed to that event.
+  - :code:`Simulator`: defines a set of remotes that send commands through SAL to simulated (or real) instances of different CSCs
+  - :code:`CSC sim`: defines a set of controllers that simulate different CSCs. These controllers receive commands from the remotes defined in :code:`simulator`. They are used to simulate some of the LSST CSCs in order to display statuses in the CSC SUmmary display.
+  - :code:`ScriptQueue sim`: defines a set of controllers that simulate instances of ScriptQueues (can be more than 1 instance with different salindexes.
+  - :code:`ATDome sim`: defines a set of controllers that simulate instances of ATDomes
 
-When the LOVE-frontend sends a command to the LOVE-manager, the latter sends the command to the LOVE-producer, who sends a command acknowledgement back to the LOVE-manager. The command acknowledgement is then sent back to the LOVE-frontend.
-
-For more details of how this communication works please check the :ref:`How it works` section.
+In a typical deployment, there is an instance of the LOVE-simulator (built from, the :code:`simulator` module) and 1 instance of each (simulated) CSC defined in the :code:`csc-sim` module.
+Some of the CSC simulators have been developed in separate repositories by LSST staff and repackaged/tweaked in this repository. This is done in order to fit LOVE's development and deployment strategies for easier usage.
