@@ -1,29 +1,29 @@
-csc\-sim package
+csc\_sim package
 ================
 
 Submodules
 ----------
 
-csc\-sim.atdome module
+csc\_sim.atdome module
 ----------------------
 
-.. automodule:: csc-sim.atdome
+.. automodule:: csc_sim.atdome
    :members:
    :undoc-members:
    :show-inheritance:
 
-csc\-sim.scriptqueue module
+csc\_sim.scriptqueue module
 ---------------------------
 
-.. automodule:: csc-sim.scriptqueue
+.. automodule:: csc_sim.scriptqueue
    :members:
    :undoc-members:
    :show-inheritance:
 
-csc\-sim.testcsc module
+csc\_sim.testcsc module
 -----------------------
 
-.. automodule:: csc-sim.testcsc
+.. automodule:: csc_sim.testcsc
    :members:
    :undoc-members:
    :show-inheritance:
@@ -32,7 +32,7 @@ csc\-sim.testcsc module
 Module contents
 ---------------
 
-.. automodule:: csc-sim
+.. automodule:: csc_sim
    :members:
    :undoc-members:
    :show-inheritance:
