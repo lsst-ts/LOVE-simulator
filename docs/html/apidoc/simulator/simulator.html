@@ -89,7 +89,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">3.1.1. simulator package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#subpackages">3.1.1.1. Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">3.1.1.2. Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#simulator-main-module">3.1.1.3. simulator.main module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-simulator.main">3.1.1.3. simulator.main module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-simulator">3.1.1.4. Module contents</a></li>
 </ul>
 </li>
@@ -193,8 +193,28 @@
 <div class="section" id="submodules">
 <h2>3.1.1.2. Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="simulator-main-module">
-<h2>3.1.1.3. simulator.main module<a class="headerlink" href="#simulator-main-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-simulator.main">
+<span id="simulator-main-module"></span><h2>3.1.1.3. simulator.main module<a class="headerlink" href="#module-simulator.main" title="Permalink to this headline">¶</a></h2>
+<p>Main executable of the LOVE-simulator.</p>
+<dl class="function">
+<dt id="simulator.main.read_config">
+<code class="sig-prename descclassname">simulator.main.</code><code class="sig-name descname">read_config</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">source=None</em>, <em class="sig-param">csc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simulator.main.read_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a given config file and returns the lists of CSCs to listen to.
+It can read the full file (by default), or read only a specific key</p>
+<dl class="simple">
+<dt>path: <cite>string</cite></dt><dd><p>The full path of the config file</p>
+</dd>
+<dt>source: <cite>string</cite></dt><dd><p>optional source to filter, the results will only consider values with the given source</p>
+</dd>
+<dt>csc: <cite>string</cite></dt><dd><p>optional CSC to filter, the results will only consider values with the given CSC</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>csc_list: <cite>[()]</cite></dt><dd><p>The list of CSCs to run as a tuple with the CSC name and index</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-simulator">
 <span id="module-contents"></span><h2>3.1.1.4. Module contents<a class="headerlink" href="#module-simulator" title="Permalink to this headline">¶</a></h2>
