@@ -1,3 +1,4 @@
+"""Main executable of the LOVE-simulator."""
 import asyncio
 import json
 import atdome.simulator as atdome
