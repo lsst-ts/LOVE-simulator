@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1. Overview &mdash; LOVE-simulator 0.0.2 documentation</title>
+  <title>1. Overview and configuration &mdash; LOVE-simulator 0.0.2 documentation</title>
   
 
   
@@ -82,7 +82,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Overview and configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#defining-simulated-cscs-with-config-json">1.1. Defining simulated CSCs with <code class="code docutils literal notranslate"><span class="pre">config.json</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-variables">1.2. Environment variables</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="readme_link.html">2. LOVE-simulator instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="apidoc.html">3. ApiDoc</a></li>
 </ul>
@@ -130,7 +134,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>1. Overview</li>
+      <li>1. Overview and configuration</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -149,12 +153,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="overview">
-<h1>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="overview-and-configuration">
+<h1>1. Overview and configuration<a class="headerlink" href="#overview-and-configuration" title="Permalink to this headline">¶</a></h1>
 <p>The LOVE-simulator is part of the LSST Operation and Visualization Environment (L.O.V.E.) project and it is written in Python.
 The LOVE-simulator defines a set of CSC simulation tools to be used for development/demonstration purposes. Therefore, it is only used in development deployment stacks and not in real operations.</p>
 <p>In short, the LOVE-simulator is used to simulate some of the CSCs of the LSST, enabling the LOVE-producer to get simulated data through SAL:</p>
-<img alt="../_images/Simulator_Overview.svg" src="../_images/Simulator_Overview.svg" /><p>As shown in the figure above, there are different software instances interacting with SAL:</p>
+<img alt="../_images/Simulator_Overview_2.svg" src="../_images/Simulator_Overview_2.svg" /><p>As shown in the figure above, there are different software instances interacting with SAL:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">Simulator</span></code>: defines a set of remotes that send commands through SAL to simulated (or real) instances of different CSCs</p></li>
@@ -165,6 +169,47 @@ The LOVE-simulator defines a set of CSC simulation tools to be used for developm
 </div></blockquote>
 <p>In a typical deployment, there is an instance of the LOVE-simulator (built from, the <code class="code docutils literal notranslate"><span class="pre">simulator</span></code> module) and 1 instance of each (simulated) CSC defined in the <code class="code docutils literal notranslate"><span class="pre">csc-sim</span></code> module.
 Some of the CSC simulators have been developed in separate repositories by LSST staff and repackaged/tweaked in this repository. This is done in order to fit LOVE’s development and deployment strategies for easier usage.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">config.json</span></code> gives information of which CSCs and in which SAL topics (and their indices) to simulate. Environment variables are also read to configure other parameters.</p>
+<div class="section" id="defining-simulated-cscs-with-config-json">
+<h2>1.1. Defining simulated CSCs with <code class="code docutils literal notranslate"><span class="pre">config.json</span></code><a class="headerlink" href="#defining-simulated-cscs-with-config-json" title="Permalink to this headline">¶</a></h2>
+<p>The LOVE-simulator and simulated CSC instances read a <code class="code docutils literal notranslate"><span class="pre">config.json</span></code> file (located in the <code class="code docutils literal notranslate"><span class="pre">simulator/config/</span></code> folder) to create the instances of the simulation tools.
+This file specifies for each CSC the SAL index and a “source” for the data. The “source” can be either:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">command_sim</span></code>: specifies that the data will be sent by a simulated CSC</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">emitter</span></code> specifies that the data will be simulated with random values by the <code class="code docutils literal notranslate"><span class="pre">simulator</span></code> itself.</p></li>
+</ul>
+<p>For example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Test&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;command_sim&quot;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;emitter&quot;</span> <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;ScriptQueue&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;command_sim&quot;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;command_sim&quot;</span> <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;ATDome&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;command_sim&quot;</span> <span class="p">}</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>configures the following instances:</p>
+<ul class="simple">
+<li><p>1 instance of a “Test” CSC with salindex 1 that will be simulated using a CSC simulator</p></li>
+<li><p>1 instance of a “Test” CSC with salindex 2 that will be simulated with random values by the <code class="code docutils literal notranslate"><span class="pre">simulator</span></code> itself.</p></li>
+<li><p>2 instance of “ScriptQueue”s, with salindexes 1 and 2, that will be simulated using a ScriptQueue simulator</p></li>
+<li><p>1 instance of an “ATDome” CSC with salindex 1 that will be simulated using an ATDome simulator</p></li>
+</ul>
+</div>
+<div class="section" id="environment-variables">
+<h2>1.2. Environment variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
+<p>Two environment variables must be set to configure the simulators:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">LSST_DDS_DOMAIN</span></code>: Used by <code class="code docutils literal notranslate"><span class="pre">salobj</span></code> to filter SAL messages in the network.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">OSPL_URI</span></code>: Location of the <code class="code docutils literal notranslate"><span class="pre">ospl.xml</span></code> file that defines the network configuration.</p></li>
+</ul>
+</div>
 </div>
 
 
