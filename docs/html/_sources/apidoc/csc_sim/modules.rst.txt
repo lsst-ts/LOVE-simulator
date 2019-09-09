@@ -1,7 +1,7 @@
-csc-sim
+csc_sim
 =======
 
 .. toctree::
    :maxdepth: 4
 
-   csc-sim
+   csc_sim

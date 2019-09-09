@@ -13,4 +13,4 @@ As explained in the :ref:`Overview and configuration` section. The project is su
    :maxdepth: 4
 
    ../apidoc/simulator/modules.rst
-   ../apidoc/csc-sim/modules.rst
+   ../apidoc/csc_sim/modules.rst
