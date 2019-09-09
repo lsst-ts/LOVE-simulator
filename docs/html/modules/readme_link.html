@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Readme File &mdash; LOVE-simulator 0.0.2 documentation</title>
+  <title>2. LOVE-simulator instructions &mdash; LOVE-simulator 0.0.2 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="ApiDoc" href="apidoc.html" />
-    <link rel="prev" title="Overview" href="overview.html" /> 
+    <link rel="next" title="3. ApiDoc" href="apidoc.html" />
+    <link rel="prev" title="1. Overview" href="overview.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,12 +82,17 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Readme File</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#love-simulation">LOVE-simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. LOVE-simulator instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#use-as-part-of-the-love-system">2.1. Use as part of the LOVE system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local-load-for-development">2.2. Local load for development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#load-and-get-into-the-docker-image">2.2.1. Load and get into the docker image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-documentation">2.2.2. Build documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="apidoc.html">ApiDoc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="apidoc.html">3. ApiDoc</a></li>
 </ul>
 
             
@@ -133,7 +138,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Readme File</li>
+      <li>2. LOVE-simulator instructions</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -152,11 +157,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="readme-file">
-<h1>Readme File<a class="headerlink" href="#readme-file" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="love-simulation">
-<h2>LOVE-simulation<a class="headerlink" href="#love-simulation" title="Permalink to this headline">¶</a></h2>
-<p>Tools for simulation of a SAL environment. For development and demonstration purposes</p>
+  <div class="section" id="love-simulator-instructions">
+<h1>2. LOVE-simulator instructions<a class="headerlink" href="#love-simulator-instructions" title="Permalink to this headline">¶</a></h1>
+<p>This repository contains tools for simulation of a SAL environment. For development and demonstration purposes</p>
+<p>See the documentation here: <a class="reference external" href="https://lsst-ts.github.io/LOVE-simulator/html/index.html">https://lsst-ts.github.io/LOVE-simulator/html/index.html</a></p>
+<div class="section" id="use-as-part-of-the-love-system">
+<h2>2.1. Use as part of the LOVE system<a class="headerlink" href="#use-as-part-of-the-love-system" title="Permalink to this headline">¶</a></h2>
+<p>In order to use the LOVE-producer as part of the LOVE system we recommend to use the docker-compose and configuration files provided in the <a class="reference external" href="https://github.com/lsst-ts/LOVE-integration-tools">LOVE-integration-tools</a> repo. Please follow the instructions there.</p>
+</div>
+<div class="section" id="local-load-for-development">
+<h2>2.2. Local load for development<a class="headerlink" href="#local-load-for-development" title="Permalink to this headline">¶</a></h2>
+<p>We provide a docker image and a docker-compose file in order to load the LOVE-simulator locally for development purposes, i.e. build documentation.</p>
+<p>This docker-compose does not copy the code into the image, but instead it mounts the repository inside the image, this way you can edit the code from outside the docker container with no need to rebuild or restart.</p>
+<div class="section" id="load-and-get-into-the-docker-image">
+<h3>2.2.1. Load and get into the docker image<a class="headerlink" href="#load-and-get-into-the-docker-image" title="Permalink to this headline">¶</a></h3>
+<p>Follow these instructions to run the application in a docker container and get into it:</p>
+<ol class="arabic">
+<li><p>Launch and get into the container:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span>
+<span class="n">docker</span><span class="o">-</span><span class="k">exec</span> <span class="n">simulator</span> <span class="n">bash</span>
+</pre></div>
+</div>
+</li>
+<li><p>Inside the container:, load the setup and got to love folder</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">source</span> <span class="p">.</span><span class="n">setup</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">love</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="build-documentation">
+<h3>2.2.2. Build documentation<a class="headerlink" href="#build-documentation" title="Permalink to this headline">¶</a></h3>
+<p>Once inside the container and in the <code class="docutils literal notranslate"><span class="pre">love</span></code> folder you can build the documentation as follows:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">docsrc</span>
+<span class="p">.</span><span class="o">/</span><span class="n">create_docs</span><span class="p">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -168,10 +206,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="apidoc.html" class="btn btn-neutral float-right" title="ApiDoc" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="apidoc.html" class="btn btn-neutral float-right" title="3. ApiDoc" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="overview.html" class="btn btn-neutral float-left" title="1. Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

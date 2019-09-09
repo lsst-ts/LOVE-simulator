@@ -9,6 +9,7 @@ Welcome to LOVE-simulator's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   :numbered:
 
    modules/overview.rst
    modules/readme_link.rst
