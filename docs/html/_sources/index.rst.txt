@@ -12,7 +12,7 @@ Welcome to LOVE-simulator's documentation!
 
    modules/overview.rst
    modules/readme_link.rst
-   apidoc/modules.rst
+   modules/apidoc.rst
 
 
 

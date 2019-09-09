@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+
+  simulator:
+    container_name: simulator-local
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    image: love-simulator-image-mount
+    volumes:
+      - .:/usr/src/love
+    command: "/usr/src/love/setup.sh"
+    stdin_open: true
+    tty: true
