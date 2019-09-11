@@ -80,7 +80,7 @@ pipeline {
     stage("Build ATDome simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-sim/atdome-setup.sh"
+          changeset "csc_sim/atdome-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-atdome"
           changeset "Jenkinsfile"
@@ -116,7 +116,7 @@ pipeline {
     stage("Push ATDome simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-sim/atdome-setup.sh"
+          changeset "csc_sim/atdome-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-atdome"
           changeset "Jenkinsfile"
@@ -144,7 +144,7 @@ pipeline {
     stage("Build TestCSC simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-sim/testcsc-setup.sh"
+          changeset "csc_sim/testcsc-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-testcsc"
           changeset "Jenkinsfile"
@@ -180,7 +180,7 @@ pipeline {
     stage("Push TestCSC simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-sim/testcsc-setup.sh"
+          changeset "csc_sim/testcsc-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-testcsc"
           changeset "Jenkinsfile"
@@ -208,7 +208,7 @@ pipeline {
     stage("Build ScriptQueue simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-sim/scriptqueue-setup.sh"
+          changeset "csc_sim/scriptqueue-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-scriptqueue"
           changeset "Jenkinsfile"
@@ -244,7 +244,7 @@ pipeline {
     stage("Push ScriptQueue simulator Docker image") {
       when {
         anyOf {
-          changeset "csc-sim/scriptqueue-setup.sh"
+          changeset "csc_sim/scriptqueue-setup.sh"
           changeset "config/*"
           changeset "Dockerfile-scriptqueue"
           changeset "Jenkinsfile"

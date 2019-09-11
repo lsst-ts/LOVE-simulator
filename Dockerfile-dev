@@ -8,5 +8,4 @@ COPY config ./config
 COPY config /home/saluser/config
 
 WORKDIR /home/saluser
-# ENTRYPOINT ["/usr/src/love/simulator/start-daemon.sh"]
 CMD ["/usr/src/love/simulator/start-daemon.sh"]
