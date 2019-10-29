@@ -15,7 +15,7 @@ async def main_csc(name, index, domain):
     r = salobj.Remote(domain=domain, name=name, index=index)
     try:
         await r.cmd_start.start(timeout=30)
-        await salobj.set_summary_state(r, salobj.State.ENABLED)
+        await r.cmd_enable.start(timeout=30)
         await r.evt_heartbeat.next(flush=True, timeout=5)
     except Exception as e:
         print(e)
@@ -52,7 +52,7 @@ async def main(csc_list):
     domain = salobj.Domain()
     for csc in csc_list:
         name = csc[0]
-        index = int(csc[1])
+        index = None
         asyncio.get_event_loop().create_task(main_csc(name, index, domain))
 
 if __name__ == '__main__':
