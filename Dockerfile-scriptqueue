@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:salobj4_b61
+FROM lsstts/develop-env:salobj4_b64
 
 COPY csc_sim/scriptqueue-setup.sh /home/saluser/scriptqueue-setup.sh
 COPY csc_sim/scriptqueue.py /home/saluser/scriptqueue.py
