@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:salobj4_b30
+FROM lsstts/develop-env:salobj4_b64
 
 COPY csc_sim/atdome-setup.sh /home/saluser/atdome-setup.sh
 COPY csc_sim/atdome.py /home/saluser/atdome.py
