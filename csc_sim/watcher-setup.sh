@@ -25,7 +25,10 @@ echo "rules:
   configs:
   - severities: [2, 3, 1, 3, 1]
     interval: 5
-    name: aname" > default.yaml
+    name: Rule1
+  - severities: [2, 1, 2, 1, 2, 1]
+    interval: 3
+    name: Rule2" > default.yaml
 
 #RUN WATCHER
 cd /home/saluser/repos
