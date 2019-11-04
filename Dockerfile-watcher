@@ -1,0 +1,13 @@
+FROM lsstts/develop-env:salobj4_b64
+
+COPY csc_sim/watcher-setup.sh /home/saluser/watcher-setup.sh
+COPY csc_sim/watcher.py /home/saluser/watcher.py
+COPY config /home/saluser/config
+
+RUN source /opt/lsst/software/stack/loadLSST.bash \
+    && source /home/saluser/repos/ts_sal/setup.env \
+    && setup ts_sal -t current \
+    && /home/saluser/repos/ts_sal/bin/make_idl_files.py Watcher
+
+ENTRYPOINT ["/bin/bash", "--"]
+CMD ["/home/saluser/watcher-setup.sh"]
