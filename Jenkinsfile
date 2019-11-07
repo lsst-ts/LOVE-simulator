@@ -302,7 +302,7 @@ pipeline {
               image_tag = git_tag
             }
           }
-          watcherImageName = watcherName + image_tag
+          watcherImageName = watcherImageName + image_tag
           watcherImage = docker.build(watcherImageName, "-f ./Dockerfile-watcher .")
         }
       }
