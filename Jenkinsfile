@@ -329,7 +329,7 @@ pipeline {
       steps {
         script {
           docker.withRegistry("", registryCredential) {
-            watcherImageName.push()
+            watcherImage.push()
           }
         }
       }
