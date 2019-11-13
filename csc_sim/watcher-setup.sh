@@ -28,7 +28,10 @@ echo "rules:
     name: Rule1
   - severities: [2, 1, 2, 1, 2, 1]
     interval: 3
-    name: Rule2" > default.yaml
+    name: Rule2
+  - severities: [3, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1]
+    interval: 3
+    name: Rule3" > default.yaml
 
 #RUN WATCHER
 cd /home/saluser/repos
