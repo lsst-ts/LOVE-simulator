@@ -20,7 +20,7 @@ async def main_csc(name, index, domain):
     except Exception as e:
         print(e)
 
-    azimuth = -160
+    azimuth = 0
     azimuthMax = 260
     elevation = 10
     elevationMax = 70
@@ -28,24 +28,29 @@ async def main_csc(name, index, domain):
     nasmyth1RotatorAngleMax = 90
     nasmyth2RotatorAngle = 0
     nasmyth2RotatorAngleMax = 90
-    trackingLoops = 60
+    trackingLoops = 120
     loopCount = 0
     loopCount2 = 0
-    t = {'private_sndStamp': 0}
+
+    class Object(object):
+        pass
+
+    t = Object()
+    t.private_sndStamp = 0
     while True:
         try:
             loopCount += 1
             if loopCount == 1:
                 t = await r.cmd_startTracking.start(timeout=10)
-            r.cmd_trackTarget.set(azimuth=azimuth+azimuthMax/trackingLoops*loopCount, azimuthVelocity=azimuthMax/trackingLoops,
-                                    elevation=elevation+elevationMax/trackingLoops*loopCount, elevationVelocity=elevationMax/trackingLoops,
-                                    nasmyth1RotatorAngle=nasmyth1RotatorAngle+nasmyth1RotatorAngleMax/trackingLoops*loopCount, nasmyth1RotatorAngleVelocity=nasmyth1RotatorAngleMax/trackingLoops,
-                                    nasmyth2RotatorAngle=nasmyth2RotatorAngle+nasmyth2RotatorAngleMax/trackingLoops*loopCount, nasmyth2RotatorAngleVelocity=nasmyth2RotatorAngleMax/trackingLoops,
+            r.cmd_trackTarget.set(azimuth=azimuth+azimuthMax/trackingLoops*loopCount, azimuthVelocity=3,
+                                    elevation=elevation+elevationMax/trackingLoops*loopCount, elevationVelocity=3,
+                                    nasmyth1RotatorAngle=nasmyth1RotatorAngle+nasmyth1RotatorAngleMax/trackingLoops*loopCount, nasmyth1RotatorAngleVelocity=3,
+                                    nasmyth2RotatorAngle=nasmyth2RotatorAngle+nasmyth2RotatorAngleMax/trackingLoops*loopCount, nasmyth2RotatorAngleVelocity=3,
                                     time=t.private_sndStamp, trackId=1)
-            if loopCount < 30:
+            if loopCount < trackingLoops:
                 t = await r.cmd_trackTarget.start(timeout=10)
                 await asyncio.sleep(0.25)
-            if loopCount > 30:
+            if loopCount > trackingLoops:
                 loopCount2 = loopCount2 + 1
                 loopCount=0
                 await r.cmd_stopTracking.start(timeout=20)
