@@ -22,11 +22,13 @@ async def main_csc(name, index, domain):
 
     while True:
         try:
-            await asyncio.sleep(30)
+            await asyncio.sleep(60)
+            print('Disabling watcher')
             await r.cmd_disable.start()
         except Exception as e:
             print(e)    
         try:
+            print('Enabling watcher')
             await r.cmd_enable.start()
         except Exception as e:
             print(e)
