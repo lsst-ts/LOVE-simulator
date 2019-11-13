@@ -33,7 +33,7 @@ async def main_csc(name, index, domain):
         except Exception as e:
             print(e)
         try:
-            print('Enabling watcher')
+            print('Starting watcher')
             await r.cmd_start.start()
         except Exception as e:
             print(e)

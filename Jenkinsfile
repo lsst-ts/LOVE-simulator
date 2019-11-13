@@ -5,10 +5,12 @@ pipeline {
     imageName = "lsstts/love-simulator:"
     atdomeImageName = "lsstts/love-atdome-sim:"
     scriptqueueImageName = "lsstts/love-scriptqueue-sim:"
+    watcherImageName = "lsstts/love-watcher-sim:"
     testCSCImageName = "lsstts/love-testcsc-sim:"
     image = ""
     atdomeImage = ""
     scriptqueueImage = ""
+    watcherImage = ""
     testCSCImage = ""
   }
 
@@ -264,6 +266,70 @@ pipeline {
         script {
           docker.withRegistry("", registryCredential) {
             scriptqueueImage.push()
+          }
+        }
+      }
+    }
+
+    stage("Build Watcher simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc_sim/watcher-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-watcher"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "bugfix/*"
+          branch "hotfix/*"
+          branch "release/*"
+        }
+      }
+      steps {
+        script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+              image_tag = git_tag
+            }
+          }
+          watcherImageName = watcherImageName + image_tag
+          watcherImage = docker.build(watcherImageName, "-f ./Dockerfile-watcher .")
+        }
+      }
+    }
+    stage("Push Watcher simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc_sim/watcher-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-watcher"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "bugfix/*"
+          branch "hotfix/*"
+          branch "release/*"
+        }
+      }
+      steps {
+        script {
+          docker.withRegistry("", registryCredential) {
+            watcherImage.push()
           }
         }
       }

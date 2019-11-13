@@ -6,6 +6,7 @@ import atmcs.simulator as atmcs
 import emitters.simulator as emitters
 import scriptqueue.simulator as scriptqueue
 import testcsc.simulator as testCsc
+import watcher.simulator as watcherCsc
 from lsst.ts import salobj
 
 
@@ -60,12 +61,14 @@ if __name__ == '__main__':
     atmcs_list = read_config(path, 'command_sim', 'ATMCS')
     sq_list = read_config(path, 'command_sim', 'ScriptQueue')
     testcsc_list = read_config(path, 'command_sim', 'Test')
+    watcher_list = read_config(path, 'command_sim', 'Watcher')
 
     print('List of emitters to start:', emitters_list)
     print('List of ATDomes to start:', atdome_list)
     print('List of ATMCSs to start:', atmcs_list)
     print('List of ScriptQueues to start:', sq_list)
     print('List of TestCSCs to start:', testcsc_list)
+    print('List of Watchers to start:', watcher_list)
     
     domain = salobj.Domain()
     loop = asyncio.get_event_loop()
@@ -82,5 +85,7 @@ if __name__ == '__main__':
     if len(testcsc_list) > 0:
         for testcsc in testcsc_list:
             loop.create_task(testCsc.main(testcsc[1]))
+    if len(watcher_list) > 0:
+        loop.create_task(watcherCsc.main(watcher_list))
 
     loop.run_forever()
