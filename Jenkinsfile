@@ -4,11 +4,13 @@ pipeline {
     registryCredential = "dockerhub-inriachile"
     imageName = "lsstts/love-simulator:"
     atdomeImageName = "lsstts/love-atdome-sim:"
+    atmcsImageName = "lsstts/love-atmcs-sim:"
     scriptqueueImageName = "lsstts/love-scriptqueue-sim:"
     watcherImageName = "lsstts/love-watcher-sim:"
     testCSCImageName = "lsstts/love-testcsc-sim:"
     image = ""
     atdomeImage = ""
+    atmcsImage = ""
     scriptqueueImage = ""
     watcherImage = ""
     testCSCImage = ""
@@ -138,6 +140,70 @@ pipeline {
         script {
           docker.withRegistry("", registryCredential) {
             atdomeImage.push()
+          }
+        }
+      }
+    }
+
+    stage("Build ATMCS simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc_sim/atmcs-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-atmcs"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "bugfix/*"
+          branch "hotfix/*"
+          branch "release/*"
+        }
+      }
+      steps {
+        script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+              image_tag = git_tag
+            }
+          }
+          atmcsImageName = atmcsImageName + image_tag
+          atmcsImage = docker.build(atmcsImageName, "-f ./Dockerfile-atmcs .")
+        }
+      }
+    }
+    stage("Push ATMCS simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc_sim/atmcs-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-atmcs"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "bugfix/*"
+          branch "hotfix/*"
+          branch "release/*"
+        }
+      }
+      steps {
+        script {
+          docker.withRegistry("", registryCredential) {
+            atmcsImage.push()
           }
         }
       }
