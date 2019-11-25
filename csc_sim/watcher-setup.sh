@@ -40,8 +40,9 @@ echo "rules:
 
 #RUN WATCHER
 cd /home/saluser/repos
-git clone https://github.com/lsst-ts/ts_watcher.git
+git clone https://github.com/lsst-ts/ts_watcher.git 
 cd ts_watcher
+git checkout 4dfb72e6a43cf69b8c7bf6b068f241baea8bab89
 setup -r .
 scons install declare
 python bin/run_watcher.py
