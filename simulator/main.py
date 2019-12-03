@@ -76,7 +76,7 @@ if __name__ == '__main__':
     if len(emitters_list) > 0:
         loop.create_task(emitters.main(loop, emitters_list))
     if len(atdome_list) > 0:
-        loop.create_task(atdome.main(atdome_list))
+        loop.create_task(atdome.main(atdome_list, domain))
     if len(atmcs_list) > 0:
         loop.create_task(atmcs.main(atmcs_list, domain))
     if len(sq_list) > 0:
