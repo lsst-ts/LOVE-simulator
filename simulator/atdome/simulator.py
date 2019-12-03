@@ -40,7 +40,7 @@ async def main_csc(name, index, domain):
             print(e)
 
 
-async def main(csc_list):
+async def main(csc_list, domain):
     """ Runs the ATDome simulator
 
     Parameters
@@ -49,7 +49,6 @@ async def main(csc_list):
         The list of CSCs to run as a tuple with the CSC name and index
     """
     print('\nATDome      | **** Starting ATDome command simulator loop *****')
-    domain = salobj.Domain()
     for csc in csc_list:
         name = csc[0]
         index = None
