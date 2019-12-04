@@ -62,6 +62,7 @@ async def main_csc(name, index, domain):
                     if data.inPosition:
                         break
         except Exception as e:
+            print(e)
             await r.cmd_standby.start()
             await r.cmd_start.start() 
             await r.cmd_enable.start()

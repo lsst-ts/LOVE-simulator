@@ -38,6 +38,19 @@ async def main_csc(name, index, domain):
             await asyncio.sleep(10)
         except Exception as e:
             print(e)
+            try:
+                await r.cmd_standby.start()
+            except Exception as e:
+                pass
+            try:
+                await r.cmd_start.start() 
+            except Exception as e:
+                pass
+            try:
+                await r.cmd_enable.start()
+            except Exception as e:
+                pass
+            loopCount=0
 
 
 async def main(csc_list, domain):
