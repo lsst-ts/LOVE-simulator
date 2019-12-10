@@ -51,6 +51,7 @@ async def main_csc(name, index, domain):
             except Exception as e:
                 pass
             loopCount=0
+            await asyncio.sleep(10)
 
 
 async def main(csc_list, domain):
