@@ -17,6 +17,6 @@ if __name__ == '__main__':
                 if 'index' in atdome_config:
                     salindex = atdome_config['index']
                 print('ATDome csc | Launching salindex = {}'.format(salindex))
-                csc = ATDome.ATDomeCsc(initial_simulation_mode=True)
+                csc = ATDome.ATDomeCsc(simulation_mode=True)
                 awaitables.append(csc.done_task)
         asyncio.get_event_loop().run_until_complete(asyncio.wait(awaitables))

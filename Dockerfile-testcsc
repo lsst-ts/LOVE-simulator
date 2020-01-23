@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:sal_v4.0.0_salobj_v5.0.0
+FROM lsstts/develop-env:b22
 
 COPY csc_sim/testcsc-setup.sh /home/saluser/testcsc-setup.sh
 COPY csc_sim/testcsc.py /home/saluser/testcsc.py
