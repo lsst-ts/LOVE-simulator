@@ -1,0 +1,6 @@
+FROM lsstts/gencam:latest
+
+COPY csc_sim/gencam-setup.sh /home/saluser/gencam-setup.sh
+
+ENTRYPOINT ["/bin/bash", "--"]
+CMD ["/home/saluser/gencam-setup.sh"]
