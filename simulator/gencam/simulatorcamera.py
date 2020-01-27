@@ -389,9 +389,44 @@ class SimulatorCamera(genericcamera.GenericCamera):
 
         self.shutter_close_finish_event.set()
 
+    def make_random_buffer(self):
+        """ Random buffer"""
+        buffer = np.random.randint(low=np.iinfo(np.uint8).min,
+                                   high=np.iinfo(np.uint8).max,
+                                   size=self.width * self.height,
+                                   dtype=np.uint8)
+        return buffer
+
+    def make_constant_iterating_buffer(self):
+        buffer = np.ones(shape=(self.width * self.height), dtype=np.uint8)
+
+        buffer = (buffer + self.expose_count % 3) * 25 + 128
+        return buffer
+
+    def make_horizontal_gradient_buffer(self):
+        x = np.linspace(0, 255, self.width)
+        x, y = np.meshgrid(x, x)
+        buffer = x.astype(np.uint8).flatten()
+        return buffer
+
+    def make_vertical_gradient_buffer(self):
+        x = np.linspace(0, 255, self.width)
+        x, y = np.meshgrid(x, x)
+        buffer = y.astype(np.uint8).flatten()
+        return buffer
+
+    def make_diagonal_gradient_buffer(self):
+        x = np.linspace(0, 255, self.width)
+        x, y = np.meshgrid(x, x)
+        if self.expose_count % 2 == 0:
+            buffer = (0.5*x + 0.5*np.flipud(y)).astype(np.uint8).flatten()
+            return buffer
+        buffer = (0.5*x + 0.5*y).astype(np.uint8).flatten()
+        return buffer
+
     async def expose(self):
-        """ Mimics exposure.
-        """
+        """ Mimics exposure."""
+        imageByteCount = self.width * self.height * self.bytesPerPixel
 
         if self.exposure_state != 0:
             raise RuntimeError("Ongoing exposure.")
@@ -402,15 +437,25 @@ class SimulatorCamera(genericcamera.GenericCamera):
             print('self.bytesPerPixel', self.bytesPerPixel)
             self.expose_count += 1
             self.exposure_start_event.set()
+            # buffer = self.make_random_buffer()
+            # buffer = self.make_constant_iterating_buffer()
+            # buffer = self.make_horizontal_gradient_buffer()
+            # buffer = self.make_vertical_gradient_buffer()
+            buffer = self.make_diagonal_gradient_buffer()
 
-            # imageByteCount = self.width * self.height * self.bytesPerPixel
-            # buffer = np.random.randint(low=np.iinfo(np.uint16).min,
-            #                            high=np.iinfo(np.uint16).max,
-            #                            size=self.width * self.height,
-            #                            dtype=np.uint16)
-            buffer = np.ones(shape=(self.width * self.height), dtype=np.uint16)
-            print('buffer + self.expose_count % 3', (buffer + self.expose_count % 3) * 50)
-            buffer = (buffer + self.expose_count % 3) * 25
+            print(f"pre-buffer.max={buffer.max()}, len={buffer.shape[0]}, min={buffer.min()}")
+            print(buffer)
+            buffer = buffer.astype(np.uint8)
+            print(f"buffer.max={buffer.max()}, len={buffer.shape[0]}, min={buffer.min()}")
+            print(buffer)
+
+            # x = np.linspace(0, 100, self.width)
+            # y = np.linspace(0, 255, self.height)
+            # x, y = np.meshgrid(x, y)
+            # buffer = x.astype(np.int8).flatten()
+            # buffer = np.sqrt(np.where(x < 50, shade, 255) * np.where(y < 50, shade, 255))
+            # buffer = buffer.astype(np.int16)
+            # print(f'shade: {shade}, min:{buffer.min()}, max:{buffer.max()}')
 
             self.log.debug(f"expose: {self.exposure_time}s.")
 
