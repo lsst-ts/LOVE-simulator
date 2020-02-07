@@ -71,7 +71,7 @@ if __name__ == '__main__':
     print('List of ScriptQueues to start:', sq_list)
     print('List of TestCSCs to start:', testcsc_list)
     print('List of Watchers to start:', watcher_list)
-    print('List of GenericCameras to start:', gencam_list)
+    print('List of GenericCameras to start: ', gencam_list)
 
     domain = salobj.Domain()
     loop = asyncio.get_event_loop()
