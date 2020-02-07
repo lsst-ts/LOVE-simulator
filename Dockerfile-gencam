@@ -1,6 +1,0 @@
-FROM lsstts/gencam:latest
-
-COPY csc_sim/gencam-setup.sh /home/saluser/gencam-setup.sh
-COPY simulator/gencam/simulatorcamera.py /home/saluser/repos/ts_GenericCamera/python/lsst/ts/GenericCamera/driver/
-ENTRYPOINT ["/bin/bash", "--"]
-CMD ["/home/saluser/gencam-setup.sh"]
