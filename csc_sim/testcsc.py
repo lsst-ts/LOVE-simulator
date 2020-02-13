@@ -58,7 +58,7 @@ class LogMessagesMock():
             await self.r.cmd_wait.set_start(duration=5, timeout=STD_TIMEOUT)
 
     async def printmessage(self):
-        msg = await self.r.evt_logMessage.aget(timeout=STD_TIMEOUT)
+        msg = await self.r.evt_logMessage.next(flush=True)
         print('\n TestCSC', self.salindex, ' | msg:', msg.message, '\nlvl:', msg.level, '\ntrace:', msg.traceback)
 
 
