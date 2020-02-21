@@ -26,17 +26,27 @@ fi
 #WRITE CONFIG
 cd /home/saluser/repos/ts_config_ocs/Watcher/v1
 echo "rules:
-- classname: test.ConfiguredSeverities
+- classname: Enabled
   configs:
-  - severities: [2, 3, 1, 3, 1]
-    interval: 5
-    name: Rule1
-  - severities: [2, 1, 2, 1, 2, 1]
-    interval: 3
-    name: Rule2
-  - severities: [3, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1]
-    interval: 3
-    name: Rule3" > default.yaml
+  - name: ATDome
+  - name: ATDomeTrajectory
+  - name: ATHexapod
+  - name: ATMCS
+  - name: ATPneumatics
+  - name: ATPtg
+  - name: Environment
+  - name: ATAOS
+  - name: GenericCamera
+  - name: ScriptQueue:1
+- classname: Heartbeat
+  configs:
+  - name: ATDome
+  - name: ATDomeTrajectory
+  - name: ATHexapod
+  - name: Environment
+  - name: ATAOS
+  - name: GenericCamera
+  - name: ScriptQueue:1" > default.yaml
 
 #RUN WATCHER
 cd /home/saluser/repos
