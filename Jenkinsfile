@@ -8,12 +8,14 @@ pipeline {
     scriptqueueImageName = "lsstts/love-scriptqueue-sim:"
     watcherImageName = "lsstts/love-watcher-sim:"
     testCSCImageName = "lsstts/love-testcsc-sim:"
+    jupyterImageName = "lsstts/love-jupyter:"
     image = ""
     atdomeImage = ""
     atmcsImage = ""
     scriptqueueImage = ""
     watcherImage = ""
     testCSCImage = ""
+    jupyterImage = ""
   }
 
   stages {
@@ -396,6 +398,68 @@ pipeline {
         script {
           docker.withRegistry("", registryCredential) {
             watcherImage.push()
+          }
+        }
+      }
+    }
+
+    stage("Build Jupyter simulator Docker image") {
+      when {
+        anyOf {
+          changeset "jupyter.sh"
+          changeset "Dockerfile-jupyter"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "bugfix/*"
+          branch "hotfix/*"
+          branch "release/*"
+        }
+      }
+      steps {
+        script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+              image_tag = git_tag
+            }
+          }
+          jupyterImageName = jupyterImageName + image_tag
+          jupyterImage = docker.build(jupyterImageName, "-f ./Dockerfile-jupyter .")
+        }
+      }
+    }
+    stage("Push Jupyter simulator Docker image") {
+      when {
+        anyOf {
+          changeset "jupyter.sh"
+          changeset "Dockerfile-jupyter"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "bugfix/*"
+          branch "hotfix/*"
+          branch "release/*"
+        }
+      }
+      steps {
+        script {
+          docker.withRegistry("", registryCredential) {
+            jupyterImage.push()
           }
         }
       }
