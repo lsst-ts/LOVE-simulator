@@ -406,7 +406,7 @@ pipeline {
     stage("Build Jupyter simulator Docker image") {
       when {
         anyOf {
-          changeset "jupyter.sh"
+          changeset "simulator/jupyter.sh"
           changeset "Dockerfile-jupyter"
           changeset "Jenkinsfile"
           expression {
@@ -441,7 +441,7 @@ pipeline {
     stage("Push Jupyter simulator Docker image") {
       when {
         anyOf {
-          changeset "jupyter.sh"
+          changeset "simulator/jupyter.sh"
           changeset "Dockerfile-jupyter"
           changeset "Jenkinsfile"
           expression {
