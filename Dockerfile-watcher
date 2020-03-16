@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:b31
+FROM lsstts/develop-env:b41
 
 COPY csc_sim/watcher-setup.sh /home/saluser/watcher-setup.sh
 COPY config /home/saluser/config

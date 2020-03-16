@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:b31
+FROM lsstts/develop-env:b41
 
 WORKDIR /usr/src/love
 COPY simulator/requirements.txt .

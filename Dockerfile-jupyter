@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:b31
+FROM lsstts/develop-env:b41
 WORKDIR /home/saluser/
 COPY simulator/jupyter.sh .setup.sh
 USER root

@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:b31
+FROM lsstts/develop-env:b41
 
 COPY csc_sim/testcsc-setup.sh /home/saluser/testcsc-setup.sh
 COPY csc_sim/testcsc.py /home/saluser/testcsc.py

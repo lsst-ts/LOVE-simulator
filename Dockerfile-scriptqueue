@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:b31
+FROM lsstts/develop-env:b41
 
 COPY csc_sim/scriptqueue-setup.sh /home/saluser/scriptqueue-setup.sh
 COPY csc_sim/scriptqueue.py /home/saluser/scriptqueue.py
