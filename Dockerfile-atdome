@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:b41
+FROM lsstts/develop-env:b65
 
 COPY csc_sim/atdome-setup.sh /home/saluser/atdome-setup.sh
 COPY csc_sim/atdome.py /home/saluser/atdome.py
