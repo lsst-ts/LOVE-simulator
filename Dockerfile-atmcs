@@ -1,0 +1,8 @@
+FROM lsstts/develop-env:b65
+
+COPY csc_sim/atmcs-setup.sh /home/saluser/atmcs-setup.sh
+COPY csc_sim/atmcs.py /home/saluser/atmcs.py
+COPY config /home/saluser/config
+
+ENTRYPOINT ["/bin/bash", "--"]
+CMD ["/home/saluser/atmcs-setup.sh"]

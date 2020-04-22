@@ -15,7 +15,7 @@ async def main_csc(name, index, domain):
     r = salobj.Remote(domain=domain, name=name, index=index)
     try:
         await r.cmd_start.start(timeout=30)
-        await salobj.set_summary_state(r, salobj.State.ENABLED)
+        await r.cmd_enable.start(timeout=30)
         await r.evt_heartbeat.next(flush=True, timeout=5)
     except Exception as e:
         print(e)
@@ -38,9 +38,23 @@ async def main_csc(name, index, domain):
             await asyncio.sleep(10)
         except Exception as e:
             print(e)
+            try:
+                await r.cmd_standby.start()
+            except Exception as e:
+                pass
+            try:
+                await r.cmd_start.start() 
+            except Exception as e:
+                pass
+            try:
+                await r.cmd_enable.start()
+            except Exception as e:
+                pass
+            loopCount=0
+            await asyncio.sleep(10)
 
 
-async def main(csc_list):
+async def main(csc_list, domain):
     """ Runs the ATDome simulator
 
     Parameters
@@ -49,10 +63,9 @@ async def main(csc_list):
         The list of CSCs to run as a tuple with the CSC name and index
     """
     print('\nATDome      | **** Starting ATDome command simulator loop *****')
-    domain = salobj.Domain()
     for csc in csc_list:
         name = csc[0]
-        index = int(csc[1])
+        index = None
         asyncio.get_event_loop().create_task(main_csc(name, index, domain))
 
 if __name__ == '__main__':

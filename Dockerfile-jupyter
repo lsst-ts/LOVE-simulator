@@ -1,0 +1,8 @@
+FROM lsstts/develop-env:b65
+WORKDIR /home/saluser/
+COPY simulator/jupyter.sh .setup.sh
+USER root
+RUN source /opt/lsst/software/stack/loadLSST.bash \
+    && source /home/saluser/repos/ts_sal/setup.env \
+    && setup ts_sal -t current \
+    && /home/saluser/repos/ts_sal/bin/make_idl_files.py Watcher

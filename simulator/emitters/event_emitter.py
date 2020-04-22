@@ -6,7 +6,7 @@ import time
 
 def randomize_single_value(value):
     if isinstance(value, (int, np.integer)):
-        return random.choice([0, 1])
+        return random.choice([0, 1, 2, 3, 4])
     if isinstance(value, float):
         return random.random()
     if isinstance(value, str):
