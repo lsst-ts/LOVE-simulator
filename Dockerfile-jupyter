@@ -1,3 +1,4 @@
 FROM lsstts/develop-env:b101
 WORKDIR /home/saluser/
 COPY simulator/jupyter.sh /home/saluser/setup.sh
+CMD ["/home/saluser/setup.sh"]
