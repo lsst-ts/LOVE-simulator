@@ -7,6 +7,7 @@ async def main():
         try:
             print("Starting GenericCamera Simulator")
             r = salobj.Remote(salobj.Domain(), "GenericCamera", index=1)
+            await r.start_task
             await salobj.set_summary_state(r, salobj.State.ENABLED)
             await r.cmd_startLiveView.set_start(expTime=0.5)
             break

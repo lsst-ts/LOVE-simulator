@@ -13,6 +13,7 @@ async def main_csc(name, index, domain):
     print('\nATMCS      | **** Starting ATMCS command simulator loop *****')
     print('ATMCS      | - Creating remote (CSC, index): (', name, ', ', index, ')')
     r = salobj.Remote(domain=domain, name=name, index=index)
+    await r.start_task
     try:
         await r.cmd_start.start(timeout=30)
         await r.cmd_enable.start(timeout=30)
@@ -46,7 +47,7 @@ async def main_csc(name, index, domain):
                                     elevation=elevation+elevationMax/trackingLoops*loopCount, elevationVelocity=3,
                                     nasmyth1RotatorAngle=nasmyth1RotatorAngle+nasmyth1RotatorAngleMax/trackingLoops*loopCount, nasmyth1RotatorAngleVelocity=3,
                                     nasmyth2RotatorAngle=nasmyth2RotatorAngle+nasmyth2RotatorAngleMax/trackingLoops*loopCount, nasmyth2RotatorAngleVelocity=3,
-                                    time=t.private_sndStamp, trackId=1)
+                                    taiTime=t.private_sndStamp, trackId=1)
             if loopCount < trackingLoops:
                 t = await r.cmd_trackTarget.start(timeout=10)
                 await asyncio.sleep(0.25)

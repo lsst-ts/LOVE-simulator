@@ -13,6 +13,7 @@ async def main_csc(name, index, domain):
     print('\nWatcher      | **** Starting Watcher command simulator loop *****')
     print('Watcher      | - Creating remote (CSC, index): (', name, ', ', index, ')')
     r = salobj.Remote(domain=domain, name=name, index=index)
+    await r.start_task
     try:
         r.cmd_start.set(settingsToApply='default.yaml') 
         await r.cmd_start.start(timeout=30)

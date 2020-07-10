@@ -5,6 +5,7 @@ from lsst.ts import salobj
 async def main(salindex):
     d = salobj.Domain()
     r = salobj.Remote(d, 'Test', salindex)
+    await r.start_task
 
     cmds = [
         r.cmd_enable,
