@@ -43,6 +43,7 @@ class LogMessagesMock():
         self.salindex = salindex
 
     async def set_log_level(self):
+        await self.r.start_task
         await self.r.cmd_setLogLevel.set_start(level=logging.DEBUG, timeout=STD_TIMEOUT)
 
     def log_info_message(self):
@@ -54,16 +55,19 @@ class LogMessagesMock():
         self.csc.log.warning(warn_message)
 
     async def log_error_message(self):
+        await self.r.start_task
         with salobj.assertRaisesAckError():
             await self.r.cmd_wait.set_start(duration=5, timeout=STD_TIMEOUT)
 
     async def printmessage(self):
+        await self.r.start_task
         msg = await self.r.evt_logMessage.next(flush=True)
         print('\n TestCSC', self.salindex, ' | msg:', msg.message, '\nlvl:', msg.level, '\ntrace:', msg.traceback)
 
 
 async def launch(salindex, debug=False):
     mock = LogMessagesMock(salindex, initial_state=salobj.State.ENABLED)
+    await mock.csc.start_task
     asyncio.ensure_future(mock.csc.done_task)
     await mock.set_log_level()
     logmessages = [

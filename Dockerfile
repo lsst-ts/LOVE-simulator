@@ -1,5 +1,4 @@
-FROM lsstts/develop-env:b65
-
+FROM lsstts/develop-env:b101
 WORKDIR /usr/src/love
 COPY simulator/requirements.txt .
 RUN source /opt/lsst/software/stack/loadLSST.bash && pip install -r requirements.txt
