@@ -7,6 +7,7 @@ pipeline {
     atmcsImageName = "lsstts/love-atmcs-sim:"
     scriptqueueImageName = "lsstts/love-scriptqueue-sim:"
     watcherImageName = "lsstts/love-watcher-sim:"
+    environmentImageName = "lsstts/love-environment-sim:"
     testCSCImageName = "lsstts/love-testcsc-sim:"
     jupyterImageName = "lsstts/love-jupyter:"
     image = ""
@@ -14,6 +15,7 @@ pipeline {
     atmcsImage = ""
     scriptqueueImage = ""
     watcherImage = ""
+    environmentImage = ""
     testCSCImage = ""
     jupyterImage = ""
   }
@@ -375,6 +377,7 @@ pipeline {
         }
       }
     }
+
     stage("Push Watcher simulator Docker image") {
       when {
         anyOf {
@@ -403,6 +406,70 @@ pipeline {
       }
     }
 
+    stage("Build Environment simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc_sim/environment-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-environment"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "bugfix/*"
+          branch "hotfix/*"
+          branch "release/*"
+        }
+      }
+      steps {
+        script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+              image_tag = git_tag
+            }
+          }
+          environmentImageName = environmentImageName + image_tag
+          environmentImage = docker.build(environmentImageName, "-f ./Dockerfile-environment .")
+        }
+      }
+    }
+
+    stage("Push Environment simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc_sim/environment-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-environment"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "bugfix/*"
+          branch "hotfix/*"
+          branch "release/*"
+        }
+      }
+      steps {
+        script {
+          docker.withRegistry("", registryCredential) {
+            environmentImage.push()
+          }
+        }
+      }
+    }
     stage("Build Jupyter simulator Docker image") {
       when {
         anyOf {
