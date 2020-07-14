@@ -8,6 +8,7 @@ import scriptqueue.simulator as scriptqueue
 import testcsc.simulator as testCsc
 import watcher.simulator as watcherCsc
 import gencam.simulator as gencamCsc
+import environment.simulator as environmentCsc
 from lsst.ts import salobj
 
 
@@ -64,6 +65,7 @@ if __name__ == '__main__':
     testcsc_list = read_config(path, 'command_sim', 'Test')
     watcher_list = read_config(path, 'command_sim', 'Watcher')
     gencam_list = read_config(path, 'command_sim', 'GenericCamera')
+    environment_list = read_config(path, 'command_sim', 'Environment')
 
     print('List of emitters to start:', emitters_list)
     print('List of ATDomes to start:', atdome_list)
@@ -72,6 +74,7 @@ if __name__ == '__main__':
     print('List of TestCSCs to start:', testcsc_list)
     print('List of Watchers to start:', watcher_list)
     print('List of GenericCameras to start: ', gencam_list)
+    print('List of Environments to start: ', environment_list)
 
     domain = salobj.Domain()
     loop = asyncio.get_event_loop()
@@ -92,5 +95,7 @@ if __name__ == '__main__':
         loop.create_task(watcherCsc.main(watcher_list))
     if len(gencam_list) > 0:
         loop.create_task(gencamCsc.main())
+    if len(environment_list) > 0:
+        loop.create_task(environmentCsc.main(environment_list, domain))
 
     loop.run_forever()
