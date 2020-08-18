@@ -27,10 +27,7 @@ echo "rules:
 - classname: Heartbeat
   configs:
   - name: ATDome
-  - name: ATDomeTrajectory
-  - name: ATHexapod
   - name: Environment
-  - name: ATAOS
   - name: GenericCamera
   - name: ScriptQueue:1" > default.yaml
 
