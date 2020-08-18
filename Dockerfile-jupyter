@@ -1,8 +1,12 @@
-FROM lsstts/develop-env:b65
+FROM lsstts/develop-env:b101
 WORKDIR /home/saluser/
-COPY simulator/jupyter.sh .setup.sh
-USER root
+COPY simulator/jupyter.sh /home/saluser/setup.sh
 RUN source /opt/lsst/software/stack/loadLSST.bash \
     && source /home/saluser/repos/ts_sal/setup.env \
     && setup ts_sal -t current \
     && /home/saluser/repos/ts_sal/bin/make_idl_files.py Watcher
+
+RUN git clone --depth 1 https://github.com/lsst-ts/ts_watcher.git  /home/saluser/repos/ts_watcher
+
+
+CMD ["/home/saluser/setup.sh"]

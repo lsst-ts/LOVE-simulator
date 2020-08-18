@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:b65
+FROM lsstts/develop-env:b101
 
 COPY csc_sim/watcher-setup.sh /home/saluser/watcher-setup.sh
 COPY config /home/saluser/config
@@ -7,6 +7,8 @@ RUN source /opt/lsst/software/stack/loadLSST.bash \
     && source /home/saluser/repos/ts_sal/setup.env \
     && setup ts_sal -t current \
     && /home/saluser/repos/ts_sal/bin/make_idl_files.py Watcher
+
+RUN git clone --depth 1 https://github.com/lsst-ts/ts_watcher.git  /home/saluser/repos/ts_watcher
 
 ENTRYPOINT ["/bin/bash", "--"]
 CMD ["/home/saluser/watcher-setup.sh"]

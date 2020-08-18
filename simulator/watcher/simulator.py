@@ -13,6 +13,7 @@ async def main_csc(name, index, domain):
     print('\nWatcher      | **** Starting Watcher command simulator loop *****')
     print('Watcher      | - Creating remote (CSC, index): (', name, ', ', index, ')')
     r = salobj.Remote(domain=domain, name=name, index=index)
+    await r.start_task
     try:
         r.cmd_start.set(settingsToApply='default.yaml') 
         await r.cmd_start.start(timeout=30)
@@ -20,23 +21,23 @@ async def main_csc(name, index, domain):
     except Exception as e:
         print(e)
 
-    while True:
-        try:
-            await asyncio.sleep(60)
-            print('Disabling watcher')
-            await r.cmd_disable.start()
-        except Exception as e:
-            print(e)    
-        try:
-            print('Enabling watcher')
-            await r.cmd_enable.start()
-        except Exception as e:
-            print(e)
-        try:
-            print('Starting watcher')
-            await r.cmd_start.start()
-        except Exception as e:
-            print(e)
+    # while True:
+    #     try:
+    #         await asyncio.sleep(60)
+    #         print('Disabling watcher')
+    #         await r.cmd_disable.start()
+    #     except Exception as e:
+    #         print(e)    
+    #     try:
+    #         print('Enabling watcher')
+    #         await r.cmd_enable.start()
+    #     except Exception as e:
+    #         print(e)
+    #     try:
+    #         print('Starting watcher')
+    #         await r.cmd_start.start()
+    #     except Exception as e:
+    #         print(e)
 
 
 async def main(csc_list):

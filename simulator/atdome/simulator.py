@@ -13,6 +13,7 @@ async def main_csc(name, index, domain):
     print('\nATDome      | **** Starting ATDome command simulator loop *****')
     print('ATDome      | - Creating remote (CSC, index): (', name, ', ', index, ')')
     r = salobj.Remote(domain=domain, name=name, index=index)
+    await r.start_task
     try:
         await r.cmd_start.start(timeout=30)
         await r.cmd_enable.start(timeout=30)

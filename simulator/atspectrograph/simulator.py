@@ -13,6 +13,7 @@ async def main(index):
     print('LATISS - Creating remote')
     d = salobj.Domain()
     r = salobj.Remote(d, 'ATSpectrograph', index)
+    await r.start_task
     fwOptions = [0, 1, 2, 2, 2, 2, 2, 3]
     gwOptions = [0, 1, 2, 2, 2, 2, 2, 3]
     try:

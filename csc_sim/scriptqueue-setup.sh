@@ -1,4 +1,5 @@
 #!/bin/bash
+. /home/saluser/.setup_dev.sh
 
 source .setup.sh
 if [[ $LSST_DDS_IP != *"."* ]]; then
