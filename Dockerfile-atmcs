@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:b101
+FROM lsstts/develop-env:c0010
 
 COPY csc_sim/atmcs-setup.sh /home/saluser/atmcs-setup.sh
 COPY csc_sim/atmcs.py /home/saluser/atmcs.py

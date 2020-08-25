@@ -1,4 +1,4 @@
-FROM lsstts/develop-env:b101
+FROM lsstts/develop-env:c0010
 
 COPY environment_setup.sh /home/saluser/setup.sh
 COPY csc_sim/environment-setup.sh /home/saluser/environment-setup.sh
