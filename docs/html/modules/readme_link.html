@@ -174,14 +174,14 @@
 <p>Follow these instructions to run the application in a docker container and get into it:</p>
 <ol class="arabic">
 <li><p>Launch and get into the container:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span>
-<span class="n">docker</span><span class="o">-</span><span class="k">exec</span> <span class="n">simulator</span> <span class="n">bash</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>docker-compose up -d
+docker-exec simulator bash
 </pre></div>
 </div>
 </li>
 <li><p>Inside the container:, load the setup and got to love folder</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="k">source</span> <span class="p">.</span><span class="n">setup</span><span class="p">.</span><span class="n">sh</span>
-<span class="n">cd</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">love</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>source .setup.sh
+cd /usr/src/love
 </pre></div>
 </div>
 </li>
@@ -190,8 +190,8 @@
 <div class="section" id="build-documentation">
 <h3>2.2.2. Build documentation<a class="headerlink" href="#build-documentation" title="Permalink to this headline">¶</a></h3>
 <p>Once inside the container and in the <code class="docutils literal notranslate"><span class="pre">love</span></code> folder you can build the documentation as follows:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">docsrc</span>
-<span class="p">.</span><span class="o">/</span><span class="n">create_docs</span><span class="p">.</span><span class="n">sh</span>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>cd docsrc
+./create_docs.sh
 </pre></div>
 </div>
 </div>
