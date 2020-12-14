@@ -63,7 +63,7 @@ if __name__ == '__main__':
     # atmcs_list = read_config(path, 'command_sim', 'ATMCS')
     sq_list = read_config(path, 'command_sim', 'ScriptQueue')
     testcsc_list = read_config(path, 'command_sim', 'Test')
-    # watcher_list = read_config(path, 'command_sim', 'Watcher')
+    watcher_list = read_config(path, 'command_sim', 'Watcher')
     gencam_list = read_config(path, 'command_sim', 'GenericCamera')
     environment_list = read_config(path, 'command_sim', 'Environment')
 
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     print('ATDome and ATMCS is ommitted. Use the ScriptQueue instead.')
     print('List of ScriptQueues to start:', sq_list)
     print('List of TestCSCs to start:', testcsc_list)
-    # print('List of Watchers to start:', watcher_list)
+    print('List of Watchers to start:', watcher_list)
     print('List of GenericCameras to start: ', gencam_list)
     print('List of Environments to start: ', environment_list)
 
@@ -92,8 +92,8 @@ if __name__ == '__main__':
     # if len(testcsc_list) > 0:
         # for testcsc in testcsc_list:
         #     loop.create_task(testCsc.main(testcsc[1]))
-    # if len(watcher_list) > 0:
-    #     loop.create_task(watcherCsc.main(watcher_list))
+    if len(watcher_list) > 0:
+        loop.create_task(watcherCsc.main(watcher_list))
     if len(gencam_list) > 0:
         loop.create_task(gencamCsc.main())
     if len(environment_list) > 0:
