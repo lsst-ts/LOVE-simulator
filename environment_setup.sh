@@ -54,7 +54,7 @@ declare_and_setup() {
 echo "# Declare and setup my packages; please ignore \"Warning: path...\" messages"
 setup sconsUtils
 setup -k verify
-eups_declare ts_environment
-declare_and_setup ts_environment
+eups_declare ts_weatherstation
+declare_and_setup ts_weatherstation
 
 /bin/bash

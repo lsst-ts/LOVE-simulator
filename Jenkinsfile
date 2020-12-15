@@ -7,7 +7,7 @@ pipeline {
     atmcsImageName = "lsstts/love-atmcs-sim:"
     scriptqueueImageName = "lsstts/love-scriptqueue-sim:"
     watcherImageName = "lsstts/love-watcher-sim:"
-    environmentImageName = "lsstts/love-environment-sim:"
+    weatherstationImageName = "lsstts/love-weatherstation-sim:"
     testCSCImageName = "lsstts/love-testcsc-sim:"
     jupyterImageName = "lsstts/love-jupyter:"
     image = ""
@@ -15,7 +15,7 @@ pipeline {
     atmcsImage = ""
     scriptqueueImage = ""
     watcherImage = ""
-    environmentImage = ""
+    weatherstationImage = ""
     testCSCImage = ""
     jupyterImage = ""
   }
@@ -406,12 +406,12 @@ pipeline {
       }
     }
 
-    stage("Build Environment simulator Docker image") {
+    stage("Build WeatherStation simulator Docker image") {
       when {
         anyOf {
-          changeset "csc_sim/environment-setup.sh"
+          changeset "csc_sim/weatherstation-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-environment"
+          changeset "Dockerfile-weatherstation"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -437,18 +437,18 @@ pipeline {
               image_tag = git_tag
             }
           }
-          environmentImageName = environmentImageName + image_tag
-          environmentImage = docker.build(environmentImageName, "-f ./Dockerfile-environment .")
+          weatherstationImageName = weatherstationImageName + image_tag
+          weatherstationImage = docker.build(weatherstationImageName, "-f ./Dockerfile-weatherstation .")
         }
       }
     }
 
-    stage("Push Environment simulator Docker image") {
+    stage("Push WeatherStation simulator Docker image") {
       when {
         anyOf {
-          changeset "csc_sim/environment-setup.sh"
+          changeset "csc_sim/weatherstation-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-environment"
+          changeset "Dockerfile-weatherstation"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -465,7 +465,7 @@ pipeline {
       steps {
         script {
           docker.withRegistry("", registryCredential) {
-            environmentImage.push()
+            weatherstationImage.push()
           }
         }
       }

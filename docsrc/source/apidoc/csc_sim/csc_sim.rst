@@ -20,10 +20,10 @@ csc\_sim.atmcs module
    :undoc-members:
    :show-inheritance:
 
-csc\_sim.environment module
+csc\_sim.weatherstation module
 ---------------------------
 
-.. automodule:: csc_sim.environment
+.. automodule:: csc_sim.weatherstation
    :members:
    :undoc-members:
    :show-inheritance:

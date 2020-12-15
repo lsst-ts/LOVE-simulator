@@ -1,13 +1,13 @@
-simulator.environment package
+simulator.weatherstation package
 =============================
 
 Submodules
 ----------
 
-simulator.environment.simulator module
+simulator.weatherstation.simulator module
 --------------------------------------
 
-.. automodule:: simulator.environment.simulator
+.. automodule:: simulator.weatherstation.simulator
    :members:
    :undoc-members:
    :show-inheritance:
@@ -16,7 +16,7 @@ simulator.environment.simulator module
 Module contents
 ---------------
 
-.. automodule:: simulator.environment
+.. automodule:: simulator.weatherstation
    :members:
    :undoc-members:
    :show-inheritance:
