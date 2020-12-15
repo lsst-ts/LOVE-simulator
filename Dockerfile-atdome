@@ -1,4 +1,5 @@
-FROM lsstts/develop-env:c0010
+ARG LSSTTS_DEV_VERSION=c0010
+FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
 
 COPY csc_sim/atdome-setup.sh /home/saluser/atdome-setup.sh
 COPY csc_sim/atdome.py /home/saluser/atdome.py

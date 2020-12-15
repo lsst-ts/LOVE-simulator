@@ -20,14 +20,14 @@ echo "rules:
   - name: ATMCS
   - name: ATPneumatics
   - name: ATPtg
-  - name: Environment
+  - name: WeatherStation
   - name: ATAOS
   - name: GenericCamera
   - name: ScriptQueue:1
 - classname: Heartbeat
   configs:
   - name: ATDome
-  - name: Environment
+  - name: WeatherStation
   - name: GenericCamera
   - name: ScriptQueue:1" > default.yaml
 
