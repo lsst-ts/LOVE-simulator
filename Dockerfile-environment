@@ -1,4 +1,5 @@
-FROM lsstts/develop-env:c0010
+ARG LSSTTS_DEV_VERSION=c0010
+FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
 
 COPY environment_setup.sh /home/saluser/setup.sh
 COPY csc_sim/environment-setup.sh /home/saluser/environment-setup.sh

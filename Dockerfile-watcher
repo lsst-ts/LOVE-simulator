@@ -1,4 +1,5 @@
-FROM lsstts/develop-env:c0010
+ARG LSSTTS_DEV_VERSION=c0010
+FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
 
 COPY csc_sim/watcher-setup.sh /home/saluser/watcher-setup.sh
 COPY config /home/saluser/config
