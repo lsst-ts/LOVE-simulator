@@ -1,14 +1,14 @@
 ARG LSSTTS_DEV_VERSION=c0010
 FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
 
-COPY environment_setup.sh /home/saluser/setup.sh
-COPY csc_sim/environment-setup.sh /home/saluser/environment-setup.sh
-COPY csc_sim/environment.py /home/saluser/environment.py
+COPY weatherstation_setup.sh /home/saluser/setup.sh
+COPY csc_sim/weatherstation-setup.sh /home/saluser/weatherstation-setup.sh
+COPY csc_sim/weatherstation.py /home/saluser/weatherstation.py
 COPY config /home/saluser/config
 
-RUN git clone --depth 1 https://github.com/lsst-ts/ts_environment.git  /home/saluser/repos/ts_environment
+RUN git clone --depth 1 https://github.com/lsst-ts/ts_weatherstation.git  /home/saluser/repos/ts_weatherstation
 
 RUN source /home/saluser/setup.sh
 
 ENTRYPOINT ["/bin/bash", "--"]
-CMD ["/home/saluser/environment-setup.sh"]
+CMD ["/home/saluser/weatherstation-setup.sh"]

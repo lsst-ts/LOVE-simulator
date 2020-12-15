@@ -7,7 +7,10 @@ Subpackages
 .. toctree::
 
    simulator.atdome
+   simulator.atmcs
    simulator.emitters
+   simulator.weatherstation
+   simulator.watcher
 
 Submodules
 ----------
