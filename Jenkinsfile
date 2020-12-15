@@ -18,6 +18,7 @@ pipeline {
     environmentImage = ""
     testCSCImage = ""
     jupyterImage = ""
+    LSSTTS_DEV_VERSION = "c0016.001"
   }
 
   stages {
@@ -53,7 +54,7 @@ pipeline {
             }
           }
           imageName = imageName + image_tag
-          image = docker.build(imageName, ".")
+          image = docker.build(imageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} .")
         }
       }
     }
@@ -117,7 +118,7 @@ pipeline {
             }
           }
           atdomeImageName = atdomeImageName + image_tag
-          atdomeImage = docker.build(atdomeImageName, "-f ./Dockerfile-atdome .")
+          atdomeImage = docker.build(atdomeImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-atdome .")
         }
       }
     }
@@ -181,7 +182,7 @@ pipeline {
             }
           }
           atmcsImageName = atmcsImageName + image_tag
-          atmcsImage = docker.build(atmcsImageName, "-f ./Dockerfile-atmcs .")
+          atmcsImage = docker.build(atmcsImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-atmcs .")
         }
       }
     }
@@ -245,7 +246,7 @@ pipeline {
             }
           }
           testCSCImageName = testCSCImageName + image_tag
-          testCSCImage = docker.build(testCSCImageName, "-f ./Dockerfile-testcsc .")
+          testCSCImage = docker.build(testCSCImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-testcsc .")
         }
       }
     }
@@ -309,7 +310,7 @@ pipeline {
             }
           }
           scriptqueueImageName = scriptqueueImageName + image_tag
-          scriptqueueImage = docker.build(scriptqueueImageName, "-f ./Dockerfile-scriptqueue .")
+          scriptqueueImage = docker.build(scriptqueueImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-scriptqueue .")
         }
       }
     }
@@ -373,7 +374,7 @@ pipeline {
             }
           }
           watcherImageName = watcherImageName + image_tag
-          watcherImage = docker.build(watcherImageName, "-f ./Dockerfile-watcher .")
+          watcherImage = docker.build(watcherImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-watcher .")
         }
       }
     }
@@ -438,7 +439,7 @@ pipeline {
             }
           }
           environmentImageName = environmentImageName + image_tag
-          environmentImage = docker.build(environmentImageName, "-f ./Dockerfile-environment .")
+          environmentImage = docker.build(environmentImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-environment .")
         }
       }
     }
@@ -501,7 +502,7 @@ pipeline {
             }
           }
           jupyterImageName = jupyterImageName + image_tag
-          jupyterImage = docker.build(jupyterImageName, "-f ./Dockerfile-jupyter .")
+          jupyterImage = docker.build(jupyterImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-jupyter .")
         }
       }
     }
