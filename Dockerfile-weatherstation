@@ -1,7 +1,7 @@
 ARG LSSTTS_DEV_VERSION=c0010
 FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
 
-COPY weatherstation_setup.sh /home/saluser/setup.sh
+COPY environment_setup.sh /home/saluser/setup.sh
 COPY csc_sim/weatherstation-setup.sh /home/saluser/weatherstation-setup.sh
 COPY csc_sim/weatherstation.py /home/saluser/weatherstation.py
 COPY config /home/saluser/config
