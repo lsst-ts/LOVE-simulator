@@ -1,4 +1,5 @@
 ARG LSSTTS_DEV_VERSION=c0010
+ARG WEATHERSTATION_VERSION=v1.1.1
 FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
 
 COPY environment_setup.sh /home/saluser/setup.sh
@@ -7,6 +8,8 @@ COPY csc_sim/weatherstation.py /home/saluser/weatherstation.py
 COPY config /home/saluser/config
 
 RUN git clone --depth 1 https://github.com/lsst-ts/ts_weatherstation.git  /home/saluser/repos/ts_weatherstation
+
+RUN cd /home/saluser/repos/ts_weatherstation && git checkout ${WEATHERSTATION_VERSION}
 
 RUN source /home/saluser/setup.sh
 

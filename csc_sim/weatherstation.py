@@ -17,8 +17,8 @@ async def main():
                 if 'index' in weatherstation_config:
                     salindex = weatherstation_config['index']
                 print('WeatherStation csc | Launching salindex = {}'.format(salindex))
-                csc = weatherstation.csc.CSC(salindex, initial_simulation_mode=True)
+                csc = weatherstation.csc.CSC(salindex, simulation_mode=True)
                 awaitables.append(csc.done_task)
         await asyncio.wait(awaitables)
-        
+
 asyncio.run(main())
