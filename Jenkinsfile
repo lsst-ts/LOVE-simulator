@@ -1,5 +1,11 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      alwaysPull true
+      image 'lsstts/develop-env:develop'
+      args "-u root --entrypoint=''"
+    }
+  }
   environment {
     registryCredential = "dockerhub-inriachile"
     imageName = "lsstts/love-simulator:"
@@ -19,6 +25,9 @@ pipeline {
     testCSCImage = ""
     jupyterImage = ""
     LSSTTS_DEV_VERSION = "c0016.001"
+    user_ci = credentials('lsst-io')
+    LTD_USERNAME="${user_ci_USR}"
+    LTD_PASSWORD="${user_ci_PSW}"
   }
 
   stages {
@@ -529,6 +538,24 @@ pipeline {
           docker.withRegistry("", registryCredential) {
             jupyterImage.push()
           }
+        }
+      }
+    }
+
+    stage("Deploy documentation") {
+      when {
+        anyOf {
+          changeset "docs/*"
+        }
+      }
+      steps {
+        script {
+          sh "pwd"
+          sh """
+            source /home/saluser/.setup_dev.sh
+            pip install ltd-conveyor
+            ltd upload --product love-simulator --git-ref ${GIT_BRANCH} --dir ./docs
+          """
         }
       }
     }
