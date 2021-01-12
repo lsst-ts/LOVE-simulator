@@ -14,8 +14,8 @@ async def main(index):
     d = salobj.Domain()
     r = salobj.Remote(d, 'ATSpectrograph', index)
     await r.start_task
-    fwOptions = [0, 1, 2, 2, 2, 2, 2, 3]
-    gwOptions = [0, 1, 2, 2, 2, 2, 2, 3]
+    fw_options = [0, 1, 2, 2, 2, 2, 2, 3]
+    gw_options = [0, 1, 2, 2, 2, 2, 2, 3]
     try:
         await r.cmd_start.start(timeout=30)
         await salobj.set_summary_state(r, salobj.State.ENABLED)
@@ -26,12 +26,12 @@ async def main(index):
         print('True')
         try:
             # change filter
-            fwChoice = random.choice(fwOptions)
-            r.cmd_changeFilter.set(filter=fwChoice, name='Filter ' + str(fwChoice))
+            fw_choice = random.choice(fw_options)
+            r.cmd_changeFilter.set(filter=fw_choice, name='Filter ' + str(fw_choice))
             await r.cmd_changeFilter.start()
             # change disperser
-            gwChoice = random.choice(gwOptions)
-            r.cmd_changeDisperser.set(disperser=gwChoice, name='Grating ' + str(gwChoice))
+            gw_choice = random.choice(gw_options)
+            r.cmd_changeDisperser.set(disperser=gw_choice, name='Grating ' + str(gw_choice))
             await r.cmd_changeDisperser.start()
             # move linear stage
             r.cmd_moveLinearStage.set(distanceFromHome=int(random.random()*73))
@@ -41,6 +41,3 @@ async def main(index):
             print(e)
 
         await asyncio.sleep(5)
-
-if __name__ == '__main__':
-    asyncio.get_event_loop().run_until_complete(simulate(csc_list))

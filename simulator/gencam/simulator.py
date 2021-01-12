@@ -11,7 +11,7 @@ async def main():
             await salobj.set_summary_state(r, salobj.State.ENABLED)
             await r.cmd_startLiveView.set_start(expTime=0.5)
             break
-        except:
+        except Exception as e:
             print("Error starting GenericCamera Simulator. Retrying in 1 second")
             await asyncio.sleep(1)
 
