@@ -21,24 +21,6 @@ async def main_csc(name, index, domain):
     except Exception as e:
         print(e)
 
-    # while True:
-    #     try:
-    #         await asyncio.sleep(60)
-    #         print('Disabling watcher')
-    #         await r.cmd_disable.start()
-    #     except Exception as e:
-    #         print(e)    
-    #     try:
-    #         print('Enabling watcher')
-    #         await r.cmd_enable.start()
-    #     except Exception as e:
-    #         print(e)
-    #     try:
-    #         print('Starting watcher')
-    #         await r.cmd_start.start()
-    #     except Exception as e:
-    #         print(e)
-
 
 async def main(csc_list):
     """ Runs the Watcher simulator
@@ -54,7 +36,3 @@ async def main(csc_list):
         name = csc[0]
         index = None
         asyncio.get_event_loop().create_task(main_csc(name, index, domain))
-
-if __name__ == '__main__':
-    print('***** Running Watcher command simulator as standalone *****')
-    asyncio.get_event_loop().run_forever(main())

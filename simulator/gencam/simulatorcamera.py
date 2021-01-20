@@ -230,12 +230,12 @@ class SimulatorCamera(genericcamera.GenericCamera):
             await f
             break
 
-    async def startTakeImage(self, expTime, shutter, science, guide, wfs):
+    async def startTakeImage(self, exp_time, shutter, science, guide, wfs):
         """Start taking an image or a set of images.
 
         Parameters
         ----------
-        expTime : float
+        exp_time : float
             The exposure time in seconds.
         shutter : bool
             Should the shutter be opened?
@@ -249,7 +249,7 @@ class SimulatorCamera(genericcamera.GenericCamera):
         if self.exposure_task is not None and not self.exposure_task.done():
             raise RuntimeError("Exposure task running.")
 
-        self.exposure_time = expTime
+        self.exposure_time = exp_time
         self.use_shutter = shutter
 
         self.log.debug("Cleaning events.")
@@ -266,7 +266,7 @@ class SimulatorCamera(genericcamera.GenericCamera):
             self.exposure_task = asyncio.ensure_future(
                 self.simulate_exposure())
 
-        await super().startTakeImage(expTime=expTime,
+        await super().startTakeImage(exp_time=exp_time,
                                      shutter=shutter,
                                      science=science,
                                      guide=guide,
@@ -426,8 +426,6 @@ class SimulatorCamera(genericcamera.GenericCamera):
 
     async def expose(self):
         """ Mimics exposure."""
-        imageByteCount = self.width * self.height * self.bytesPerPixel
-
         if self.exposure_state != 0:
             raise RuntimeError("Ongoing exposure.")
 
@@ -437,10 +435,6 @@ class SimulatorCamera(genericcamera.GenericCamera):
             print('self.bytesPerPixel', self.bytesPerPixel)
             self.expose_count += 1
             self.exposure_start_event.set()
-            # buffer = self.make_random_buffer()
-            # buffer = self.make_constant_iterating_buffer()
-            # buffer = self.make_horizontal_gradient_buffer()
-            # buffer = self.make_vertical_gradient_buffer()
             buffer = self.make_diagonal_gradient_buffer()
 
             print(f"pre-buffer.max={buffer.max()}, len={buffer.shape[0]}, min={buffer.min()}")
@@ -448,14 +442,6 @@ class SimulatorCamera(genericcamera.GenericCamera):
             buffer = buffer.astype(np.uint8)
             print(f"buffer.max={buffer.max()}, len={buffer.shape[0]}, min={buffer.min()}")
             print(buffer)
-
-            # x = np.linspace(0, 100, self.width)
-            # y = np.linspace(0, 255, self.height)
-            # x, y = np.meshgrid(x, y)
-            # buffer = x.astype(np.int8).flatten()
-            # buffer = np.sqrt(np.where(x < 50, shade, 255) * np.where(y < 50, shade, 255))
-            # buffer = buffer.astype(np.int16)
-            # print(f'shade: {shade}, min:{buffer.min()}, max:{buffer.max()}')
 
             self.log.debug(f"expose: {self.exposure_time}s.")
 
@@ -472,7 +458,6 @@ class SimulatorCamera(genericcamera.GenericCamera):
         else:
             self.log.debug(f"Taking zero second exposure.")
             self.exposure_start_event.set()
-            # imageByteCount = self.width * self.height * self.bytesPerPixel
             self.imageBuffer = np.zeros(self.width * self.height,
                                         dtype=np.uint16)
             self.exposure_state = self.exposure_steps

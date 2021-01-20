@@ -65,7 +65,7 @@ class LogMessagesMock():
         print('\n TestCSC', self.salindex, ' | msg:', msg.message, '\nlvl:', msg.level, '\ntrace:', msg.traceback)
 
 
-async def launch(salindex, debug=False):
+async def launch(salindex):
     mock = LogMessagesMock(salindex, initial_state=salobj.State.ENABLED)
     await mock.csc.start_task
     asyncio.ensure_future(mock.csc.done_task)
@@ -76,21 +76,12 @@ async def launch(salindex, debug=False):
         mock.log_error_message
     ]
 
-    counter = 1
-
     while True:
         for index, message in enumerate(logmessages):
             if index == 2:
                 await message()
             else:
                 message()
-            if debug:
-                while True:
-                    try:
-                        await mock.printmessage()
-                    except asyncio.TimeoutError:
-                        break
-            counter += 1
             await asyncio.sleep(5)
 
 async def main():

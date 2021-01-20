@@ -35,7 +35,3 @@ async def main(csc_list, domain):
         name = csc[0]
         index = csc[1]
         asyncio.get_event_loop().create_task(main_csc(name, index, domain))
-
-if __name__ == '__main__':
-    print('***** Running WeatherStation command simulator as standalone *****')
-    asyncio.get_event_loop().run_forever(main())
