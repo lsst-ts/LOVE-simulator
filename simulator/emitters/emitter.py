@@ -10,13 +10,13 @@ def randomize_single_value(value):
     if isinstance(value, float):
         return random.random()
     if isinstance(value, str):
-        return random.choice(['a', 'b', 'c'])
+        return random.choice(["a", "b", "c"])
     return value
 
 
 def randomize_params(data):
 
-    tel_param_names = [x for x in dir(data) if not x.startswith('__')]
+    tel_param_names = [x for x in dir(data) if not x.startswith("__")]
     for param_name in tel_param_names:
         tel_param = getattr(data, param_name)
         if isinstance(tel_param, (list, tuple, np.ndarray)):
@@ -27,7 +27,7 @@ def randomize_params(data):
 
 
 def emit(controller, test_seed=None):
-    if(test_seed is not None):
+    if test_seed is not None:
         random.seed(test_seed)
     tel_names = controller.salinfo.telemetry_names
     for tel in tel_names:
@@ -39,7 +39,7 @@ def emit(controller, test_seed=None):
 
 def emit_forever(controller, frequency, loop):
     asyncio.set_event_loop(loop)
-    period = 1/frequency
+    period = 1 / frequency
     while True:
         time.sleep(period)
         emit(controller)

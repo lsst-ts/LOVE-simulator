@@ -1,8 +1,9 @@
 import asyncio
 from lsst.ts import salobj
 
+
 async def manage_exception(exception, remote):
-    """ Manages exceptions raised by the remote
+    """Manages exceptions raised by the remote
 
     Parameters
     ----------
@@ -15,7 +16,7 @@ async def manage_exception(exception, remote):
     except Exception as e:
         pass
     try:
-        await remote.cmd_start.start() 
+        await remote.cmd_start.start()
     except Exception as e:
         pass
     try:
@@ -24,16 +25,17 @@ async def manage_exception(exception, remote):
         pass
     await asyncio.sleep(10)
 
+
 async def main_csc(name, index, domain):
-    """ Runs the ATDome simulator
+    """Runs the ATDome simulator
 
     Parameters
     ----------
     csc_list: `[()]`
         The list of CSCs to run as a tuple with the CSC name and index
     """
-    print('\nATDome      | **** Starting ATDome command simulator loop *****')
-    print('ATDome      | - Creating remote (CSC, index): (', name, ', ', index, ')')
+    print("\nATDome      | **** Starting ATDome command simulator loop *****")
+    print("ATDome      | - Creating remote (CSC, index): (", name, ", ", index, ")")
     r = salobj.Remote(domain=domain, name=name, index=index)
     await r.start_task
     try:
@@ -44,16 +46,16 @@ async def main_csc(name, index, domain):
         print(e)
 
     azimuth = 0
-    shutter = 'closed'
+    shutter = "closed"
 
     loop_count = 0
     while True:
         try:
             loop_count += 1
             r.cmd_moveAzimuth.set(azimuth=azimuth)
-            azimuth = (azimuth+50) % 360
-            if loop_count % 4 == 0.:
-                if shutter == 'closed':
+            azimuth = (azimuth + 50) % 360
+            if loop_count % 4 == 0.0:
+                if shutter == "closed":
                     await r.cmd_openShutter.start()
                 else:
                     await r.cmd_closeShutter.start()
@@ -64,14 +66,14 @@ async def main_csc(name, index, domain):
 
 
 async def main(csc_list, domain):
-    """ Runs the ATDome simulator
+    """Runs the ATDome simulator
 
     Parameters
     ----------
     csc_list: `[()]`
         The list of CSCs to run as a tuple with the CSC name and index
     """
-    print('\nATDome      | **** Starting ATDome command simulator loop *****')
+    print("\nATDome      | **** Starting ATDome command simulator loop *****")
     for csc in csc_list:
         name = csc[0]
         index = None
