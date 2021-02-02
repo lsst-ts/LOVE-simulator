@@ -12,7 +12,7 @@ def add_controller_in_thread(csc_name, loop, index):
 
 
 def launch_emitters_forever(loop, controller):
-    """ Launches an emitter that fills the data to be read later in the salobj remote
+    """Launches an emitter that fills the data to be read later in the salobj remote
 
     Parameters
     ----------
@@ -29,7 +29,7 @@ def launch_emitters_forever(loop, controller):
 
 
 async def main(loop, csc_list):
-    """ Runs the emitters in a given loop
+    """Runs the emitters in a given loop
 
     Parameters
     ----------
@@ -39,8 +39,8 @@ async def main(loop, csc_list):
         The list of CSCs to run as a tuple with the CSC name and index
     """
 
-    print('\nEmitters    | *** Starting Emitters Loop ***')
-    print('\nEmitters    | Launching emitters:')
+    print("\nEmitters    | *** Starting Emitters Loop ***")
+    print("\nEmitters    | Launching emitters:")
     for i in range(len(csc_list)):
         csc_params = csc_list[i]
         csc_name = csc_params[0]
@@ -48,6 +48,8 @@ async def main(loop, csc_list):
         if len(csc_params) > 1:
             [csc_name, index] = csc_params
         index = int(index)
-        print('Emitters | - Launching (CSC, index): (', csc_name, ', ', index, ')')
-        t = threading.Thread(target=add_controller_in_thread, args=[csc_name, loop, index])
+        print("Emitters | - Launching (CSC, index): (", csc_name, ", ", index, ")")
+        t = threading.Thread(
+            target=add_controller_in_thread, args=[csc_name, loop, index]
+        )
         t.start()
