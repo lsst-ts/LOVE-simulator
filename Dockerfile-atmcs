@@ -1,4 +1,4 @@
-ARG LSSTTS_DEV_VERSION=c0010
+ARG LSSTTS_DEV_VERSION=develop
 FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
 
 COPY csc_sim/atmcs-setup.sh /home/saluser/atmcs-setup.sh
