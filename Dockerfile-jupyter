@@ -1,4 +1,4 @@
-ARG LSSTTS_DEV_VERSION=c0010
+ARG LSSTTS_DEV_VERSION=develop
 FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
 WORKDIR /home/saluser/
 COPY simulator/jupyter.sh /home/saluser/setup.sh
