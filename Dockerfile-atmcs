@@ -1,4 +1,5 @@
-FROM lsstts/develop-env:b101
+ARG LSSTTS_DEV_VERSION=develop
+FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
 
 COPY csc_sim/atmcs-setup.sh /home/saluser/atmcs-setup.sh
 COPY csc_sim/atmcs.py /home/saluser/atmcs.py

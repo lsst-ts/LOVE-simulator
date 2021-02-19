@@ -5,7 +5,7 @@ from lsst.ts import ATMCSSimulator
 
 simulator_config_path = '/home/saluser/config/config.json'
 
-if __name__ == '__main__':
+async def main():
     with open(simulator_config_path) as f:
         simulator_config = json.loads(f.read())
 
@@ -18,4 +18,6 @@ if __name__ == '__main__':
                 csc = ATMCSSimulator.ATMCSCsc()
                 awaitables.append(csc.done_task)
                 break
-        asyncio.get_event_loop().run_until_complete(asyncio.wait(awaitables))
+        await asyncio.wait(awaitables)
+
+asyncio.run(main())

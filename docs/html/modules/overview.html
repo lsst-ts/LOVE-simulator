@@ -158,13 +158,15 @@
 <p>The LOVE-simulator is part of the LSST Operation and Visualization Environment (L.O.V.E.) project and it is written in Python.
 The LOVE-simulator defines a set of CSC simulation tools to be used for development/demonstration purposes. Therefore, it is only used in development deployment stacks and not in real operations.</p>
 <p>In short, the LOVE-simulator is used to simulate some of the CSCs of the LSST, enabling the LOVE-producer to get simulated data through SAL:</p>
-<img alt="../_images/Simulator_Overview_2.svg" src="../_images/Simulator_Overview_2.svg" /><p>As shown in the figure above, there are different software instances interacting with SAL:</p>
+<img alt="../_images/Overview.svg" src="../_images/Overview.svg" /><p>As shown in the figure above, there are different software instances interacting with SAL:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">Simulator</span></code>: defines a set of remotes that send commands through SAL to simulated (or real) instances of different CSCs</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">CSC</span> <span class="pre">sim</span></code>: defines a set of controllers that simulate different CSCs. These controllers receive commands from the remotes defined in <code class="code docutils literal notranslate"><span class="pre">simulator</span></code>. They are used to simulate some of the LSST CSCs in order to display statuses in the CSC SUmmary display.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ScriptQueue</span> <span class="pre">sim</span></code>: defines a set of controllers that simulate instances of ScriptQueues (can be more than 1 instance with different salindexes.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ATDome</span> <span class="pre">sim</span></code>: defines a set of controllers that simulate instances of ATDomes</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ScriptQueue</span> <span class="pre">sim</span></code>: defines a set of controllers that simulate instances of ScriptQueues (can be more than 1 instance with different salindexes</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ATDome</span> <span class="pre">sim</span></code>: defines a set of controllers that simulate instances of the ATDome</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ATMCS</span> <span class="pre">sim</span></code>: defines a set of controllers that simulate instances of the ATMCS</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">TestCSC</span> <span class="pre">sim</span></code>: defines a set of controllers that simulate instances of the TestCSC</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Watcher</span> <span class="pre">sim</span></code>: defines a set of controllers that simulate instances of the Watcher</p></li>
 </ul>
 </div></blockquote>
 <p>In a typical deployment, there is an instance of the LOVE-simulator (built from, the <code class="code docutils literal notranslate"><span class="pre">simulator</span></code> module) and 1 instance of each (simulated) CSC defined in the <code class="code docutils literal notranslate"><span class="pre">csc-sim</span></code> module.

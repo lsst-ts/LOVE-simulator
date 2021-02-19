@@ -1,14 +1,18 @@
-FROM lsstts/develop-env:b101
+ARG LSSTTS_DEV_VERSION=develop
+ARG WATCHER_VERSION=v1.4.2
+
+FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
 
 COPY csc_sim/watcher-setup.sh /home/saluser/watcher-setup.sh
 COPY config /home/saluser/config
 
 RUN source /opt/lsst/software/stack/loadLSST.bash \
-    && source /home/saluser/repos/ts_sal/setup.env \
+    && source /home/saluser/.setup_salobj.sh \
     && setup ts_sal -t current \
     && /home/saluser/repos/ts_sal/bin/make_idl_files.py Watcher
 
-RUN git clone --depth 1 https://github.com/lsst-ts/ts_watcher.git  /home/saluser/repos/ts_watcher
+RUN git clone --depth 100 https://github.com/lsst-ts/ts_watcher.git  /home/saluser/repos/ts_watcher
 
+RUN cd /home/saluser/repos/ts_watcher && git checkout ${WATCHER_VERSION}
 ENTRYPOINT ["/bin/bash", "--"]
 CMD ["/home/saluser/watcher-setup.sh"]

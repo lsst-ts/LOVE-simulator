@@ -12,6 +12,22 @@ csc\_sim.atdome module
    :undoc-members:
    :show-inheritance:
 
+csc\_sim.atmcs module
+---------------------
+
+.. automodule:: csc_sim.atmcs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+csc\_sim.environment module
+---------------------------
+
+.. automodule:: csc_sim.environment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 csc\_sim.scriptqueue module
 ---------------------------
 
