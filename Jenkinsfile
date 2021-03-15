@@ -42,6 +42,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -52,7 +53,7 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
@@ -78,6 +79,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -106,6 +108,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -116,7 +119,7 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
@@ -142,6 +145,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -170,6 +174,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -180,7 +185,7 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
@@ -206,6 +211,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -234,6 +240,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -244,7 +251,7 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
@@ -270,6 +277,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -298,6 +306,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -308,7 +317,7 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
@@ -334,6 +343,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -362,6 +372,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -372,7 +383,7 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
@@ -399,6 +410,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -427,6 +439,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -437,7 +450,7 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
@@ -464,6 +477,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -490,6 +504,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -500,7 +515,7 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
@@ -525,6 +540,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
