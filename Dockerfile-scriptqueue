@@ -1,5 +1,5 @@
-ARG LSSTTS_DEV_VERSION=develop
-FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
+ARG dev_cycle=develop
+FROM lsstts/develop-env:${dev_cycle}
 
 COPY csc_sim/scriptqueue-setup.sh /home/saluser/scriptqueue-setup.sh
 COPY csc_sim/scriptqueue.py /home/saluser/scriptqueue.py
