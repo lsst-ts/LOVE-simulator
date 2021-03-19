@@ -1,7 +1,7 @@
-ARG LSSTTS_DEV_VERSION=develop
+ARG dev_cycle=develop
 ARG WATCHER_VERSION=v1.4.2
 
-FROM lsstts/develop-env:${LSSTTS_DEV_VERSION}
+FROM lsstts/develop-env:${dev_cycle}
 
 COPY csc_sim/watcher-setup.sh /home/saluser/watcher-setup.sh
 COPY config /home/saluser/config
