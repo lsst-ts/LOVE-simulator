@@ -18,7 +18,7 @@ pipeline {
     weatherstationImage = ""
     testCSCImage = ""
     jupyterImage = ""
-    LSSTTS_DEV_VERSION = "c0016.001"
+    dev_cycle = "c0018.001"
     user_ci = credentials('lsst-io')
     LTD_USERNAME="${user_ci_USR}"
     LTD_PASSWORD="${user_ci_PSW}"
@@ -42,6 +42,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -52,12 +53,12 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
           imageName = imageName + image_tag
-          image = docker.build(imageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} .")
+          image = docker.build(imageName, "--build-arg dev_cycle=${dev_cycle} .")
         }
       }
     }
@@ -78,6 +79,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -106,6 +108,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -116,12 +119,12 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
           atdomeImageName = atdomeImageName + image_tag
-          atdomeImage = docker.build(atdomeImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-atdome .")
+          atdomeImage = docker.build(atdomeImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-atdome .")
         }
       }
     }
@@ -142,6 +145,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -170,6 +174,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -180,12 +185,12 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
           atmcsImageName = atmcsImageName + image_tag
-          atmcsImage = docker.build(atmcsImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-atmcs .")
+          atmcsImage = docker.build(atmcsImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-atmcs .")
         }
       }
     }
@@ -206,6 +211,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -234,6 +240,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -244,12 +251,12 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
           testCSCImageName = testCSCImageName + image_tag
-          testCSCImage = docker.build(testCSCImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-testcsc .")
+          testCSCImage = docker.build(testCSCImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-testcsc .")
         }
       }
     }
@@ -270,6 +277,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -298,6 +306,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -308,12 +317,12 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
           scriptqueueImageName = scriptqueueImageName + image_tag
-          scriptqueueImage = docker.build(scriptqueueImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-scriptqueue .")
+          scriptqueueImage = docker.build(scriptqueueImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-scriptqueue .")
         }
       }
     }
@@ -334,6 +343,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -362,6 +372,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -372,12 +383,12 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
           watcherImageName = watcherImageName + image_tag
-          watcherImage = docker.build(watcherImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-watcher .")
+          watcherImage = docker.build(watcherImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-watcher .")
         }
       }
     }
@@ -399,6 +410,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -427,6 +439,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -437,12 +450,12 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
           weatherstationImageName = weatherstationImageName + image_tag
-          weatherstationImage = docker.build(weatherstationImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-weatherstation .")
+          weatherstationImage = docker.build(weatherstationImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-weatherstation .")
         }
       }
     }
@@ -464,6 +477,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -490,6 +504,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
@@ -500,12 +515,12 @@ pipeline {
           if (slashPosition > 0) {
             git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
             git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix") {
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
               image_tag = git_tag
             }
           }
           jupyterImageName = jupyterImageName + image_tag
-          jupyterImage = docker.build(jupyterImageName, "--build-arg LSSTTS_DEV_VERSION=${LSSTTS_DEV_VERSION} -f ./Dockerfile-jupyter .")
+          jupyterImage = docker.build(jupyterImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-jupyter .")
         }
       }
     }
@@ -525,6 +540,7 @@ pipeline {
           branch "bugfix/*"
           branch "hotfix/*"
           branch "release/*"
+          branch "tickets/*"
         }
       }
       steps {
