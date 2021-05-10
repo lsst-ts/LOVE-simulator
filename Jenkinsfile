@@ -4,6 +4,7 @@ pipeline {
     registryCredential = "dockerhub-inriachile"
     imageName = "lsstts/love-simulator:"
     atcsImageName = "lsstts/love-atcs-sim:"
+    mtcsImageName = "lsstts/love-mtcs-sim:"
     atdomeImageName = "lsstts/love-atdome-sim:"
     atmcsImageName = "lsstts/love-atmcs-sim:"
     scriptqueueImageName = "lsstts/love-scriptqueue-sim:"
@@ -154,6 +155,72 @@ pipeline {
         script {
           docker.withRegistry("", registryCredential) {
             atcsImage.push()
+          }
+        }
+      }
+    }
+
+    stage("Build MTCS simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc_sim/mtcs-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-mtcs"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "bugfix/*"
+          branch "hotfix/*"
+          branch "release/*"
+          branch "tickets/*"
+        }
+      }
+      steps {
+        script {
+          def git_branch = "${GIT_BRANCH}"
+          def image_tag = git_branch
+          def slashPosition = git_branch.indexOf('/')
+          if (slashPosition > 0) {
+            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
+            git_branch = git_branch.substring(0, slashPosition)
+            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
+              image_tag = git_tag
+            }
+          }
+          mtcsImageName = mtcsImageName + image_tag
+          mtcsImage = docker.build(mtcsImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-mtcs .")
+        }
+      }
+    }
+    stage("Push MTCS simulator Docker image") {
+      when {
+        anyOf {
+          changeset "csc_sim/mtcs-setup.sh"
+          changeset "config/*"
+          changeset "Dockerfile-mtcs"
+          changeset "Jenkinsfile"
+          expression {
+            return currentBuild.number == 1
+          }
+        }
+        anyOf {
+          branch "master"
+          branch "develop"
+          branch "bugfix/*"
+          branch "hotfix/*"
+          branch "release/*"
+          branch "tickets/*"
+        }
+      }
+      steps {
+        script {
+          docker.withRegistry("", registryCredential) {
+            mtcsImage.push()
           }
         }
       }
