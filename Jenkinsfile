@@ -5,8 +5,6 @@ pipeline {
     imageName = "lsstts/love-simulator:"
     atcsImageName = "lsstts/love-atcs-sim:"
     mtcsImageName = "lsstts/love-mtcs-sim:"
-    atdomeImageName = "lsstts/love-atdome-sim:"
-    atmcsImageName = "lsstts/love-atmcs-sim:"
     scriptqueueImageName = "lsstts/love-scriptqueue-sim:"
     watcherImageName = "lsstts/love-watcher-sim:"
     weatherstationImageName = "lsstts/love-weatherstation-sim:"
@@ -14,8 +12,7 @@ pipeline {
     jupyterImageName = "lsstts/love-jupyter:"
     image = ""
     atcsImage = ""
-    atdomeImage = ""
-    atmcsImage = ""
+    mtcsImage = ""
     scriptqueueImage = ""
     watcherImage = ""
     weatherstationImage = ""
@@ -221,138 +218,6 @@ pipeline {
         script {
           docker.withRegistry("", registryCredential) {
             mtcsImage.push()
-          }
-        }
-      }
-    }
-
-    stage("Build ATDome simulator Docker image") {
-      when {
-        anyOf {
-          changeset "csc_sim/atdome-setup.sh"
-          changeset "config/*"
-          changeset "Dockerfile-atdome"
-          changeset "Jenkinsfile"
-          expression {
-            return currentBuild.number == 1
-          }
-        }
-        anyOf {
-          branch "master"
-          branch "develop"
-          branch "bugfix/*"
-          branch "hotfix/*"
-          branch "release/*"
-          branch "tickets/*"
-        }
-      }
-      steps {
-        script {
-          def git_branch = "${GIT_BRANCH}"
-          def image_tag = git_branch
-          def slashPosition = git_branch.indexOf('/')
-          if (slashPosition > 0) {
-            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
-            git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
-              image_tag = git_tag
-            }
-          }
-          atdomeImageName = atdomeImageName + image_tag
-          atdomeImage = docker.build(atdomeImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-atdome .")
-        }
-      }
-    }
-    stage("Push ATDome simulator Docker image") {
-      when {
-        anyOf {
-          changeset "csc_sim/atdome-setup.sh"
-          changeset "config/*"
-          changeset "Dockerfile-atdome"
-          changeset "Jenkinsfile"
-          expression {
-            return currentBuild.number == 1
-          }
-        }
-        anyOf {
-          branch "master"
-          branch "develop"
-          branch "bugfix/*"
-          branch "hotfix/*"
-          branch "release/*"
-          branch "tickets/*"
-        }
-      }
-      steps {
-        script {
-          docker.withRegistry("", registryCredential) {
-            atdomeImage.push()
-          }
-        }
-      }
-    }
-
-    stage("Build ATMCS simulator Docker image") {
-      when {
-        anyOf {
-          changeset "csc_sim/atmcs-setup.sh"
-          changeset "config/*"
-          changeset "Dockerfile-atmcs"
-          changeset "Jenkinsfile"
-          expression {
-            return currentBuild.number == 1
-          }
-        }
-        anyOf {
-          branch "master"
-          branch "develop"
-          branch "bugfix/*"
-          branch "hotfix/*"
-          branch "release/*"
-          branch "tickets/*"
-        }
-      }
-      steps {
-        script {
-          def git_branch = "${GIT_BRANCH}"
-          def image_tag = git_branch
-          def slashPosition = git_branch.indexOf('/')
-          if (slashPosition > 0) {
-            git_tag = git_branch.substring(slashPosition + 1, git_branch.length())
-            git_branch = git_branch.substring(0, slashPosition)
-            if (git_branch == "release" || git_branch == "hotfix" || git_branch == "bugfix" || git_branch == "tickets") {
-              image_tag = git_tag
-            }
-          }
-          atmcsImageName = atmcsImageName + image_tag
-          atmcsImage = docker.build(atmcsImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-atmcs .")
-        }
-      }
-    }
-    stage("Push ATMCS simulator Docker image") {
-      when {
-        anyOf {
-          changeset "csc_sim/atmcs-setup.sh"
-          changeset "config/*"
-          changeset "Dockerfile-atmcs"
-          changeset "Jenkinsfile"
-          expression {
-            return currentBuild.number == 1
-          }
-        }
-        anyOf {
-          branch "master"
-          branch "develop"
-          branch "bugfix/*"
-          branch "hotfix/*"
-          branch "release/*"
-          branch "tickets/*"
-        }
-      }
-      steps {
-        script {
-          docker.withRegistry("", registryCredential) {
-            atmcsImage.push()
           }
         }
       }
