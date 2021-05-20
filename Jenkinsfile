@@ -3,16 +3,16 @@ pipeline {
   environment {
     registryCredential = "dockerhub-inriachile"
     imageName = "lsstts/love-simulator:"
-    atdomeImageName = "lsstts/love-atdome-sim:"
-    atmcsImageName = "lsstts/love-atmcs-sim:"
+    atcsImageName = "lsstts/love-atcs-sim:"
+    mtcsImageName = "lsstts/love-mtcs-sim:"
     scriptqueueImageName = "lsstts/love-scriptqueue-sim:"
     watcherImageName = "lsstts/love-watcher-sim:"
     weatherstationImageName = "lsstts/love-weatherstation-sim:"
     testCSCImageName = "lsstts/love-testcsc-sim:"
     jupyterImageName = "lsstts/love-jupyter:"
     image = ""
-    atdomeImage = ""
-    atmcsImage = ""
+    atcsImage = ""
+    mtcsImage = ""
     scriptqueueImage = ""
     watcherImage = ""
     weatherstationImage = ""
@@ -91,12 +91,12 @@ pipeline {
       }
     }
 
-    stage("Build ATDome simulator Docker image") {
+    stage("Build ATCS simulator Docker image") {
       when {
         anyOf {
-          changeset "csc_sim/atdome-setup.sh"
+          changeset "csc_sim/atcs-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-atdome"
+          changeset "Dockerfile-atcs"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -123,17 +123,17 @@ pipeline {
               image_tag = git_tag
             }
           }
-          atdomeImageName = atdomeImageName + image_tag
-          atdomeImage = docker.build(atdomeImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-atdome .")
+          atcsImageName = atcsImageName + image_tag
+          atcsImage = docker.build(atcsImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-atcs .")
         }
       }
     }
-    stage("Push ATDome simulator Docker image") {
+    stage("Push ATCS simulator Docker image") {
       when {
         anyOf {
-          changeset "csc_sim/atdome-setup.sh"
+          changeset "csc_sim/atcs-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-atdome"
+          changeset "Dockerfile-atcs"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -151,18 +151,18 @@ pipeline {
       steps {
         script {
           docker.withRegistry("", registryCredential) {
-            atdomeImage.push()
+            atcsImage.push()
           }
         }
       }
     }
 
-    stage("Build ATMCS simulator Docker image") {
+    stage("Build MTCS simulator Docker image") {
       when {
         anyOf {
-          changeset "csc_sim/atmcs-setup.sh"
+          changeset "csc_sim/mtcs-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-atmcs"
+          changeset "Dockerfile-mtcs"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -189,17 +189,17 @@ pipeline {
               image_tag = git_tag
             }
           }
-          atmcsImageName = atmcsImageName + image_tag
-          atmcsImage = docker.build(atmcsImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-atmcs .")
+          mtcsImageName = mtcsImageName + image_tag
+          mtcsImage = docker.build(mtcsImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-mtcs .")
         }
       }
     }
-    stage("Push ATMCS simulator Docker image") {
+    stage("Push MTCS simulator Docker image") {
       when {
         anyOf {
-          changeset "csc_sim/atmcs-setup.sh"
+          changeset "csc_sim/mtcs-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-atmcs"
+          changeset "Dockerfile-mtcs"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -217,7 +217,7 @@ pipeline {
       steps {
         script {
           docker.withRegistry("", registryCredential) {
-            atmcsImage.push()
+            mtcsImage.push()
           }
         }
       }
