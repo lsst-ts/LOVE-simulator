@@ -1,0 +1,6 @@
+ARG dev_cycle=develop
+FROM lsstts/develop-env:${dev_cycle}
+
+COPY csc_sim/mtcs-setup.sh /home/saluser/mtcs-setup.sh
+WORKDIR /home/saluser
+ENTRYPOINT ["/home/saluser/mtcs-setup.sh"]
