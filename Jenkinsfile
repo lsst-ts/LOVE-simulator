@@ -18,7 +18,7 @@ pipeline {
     weatherstationImage = ""
     testCSCImage = ""
     jupyterImage = ""
-    dev_cycle = "c0020.006"
+    dev_cycle = "c0021.007"
     user_ci = credentials('lsst-io')
     LTD_USERNAME="${user_ci_USR}"
     LTD_PASSWORD="${user_ci_PSW}"
