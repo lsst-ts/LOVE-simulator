@@ -20,14 +20,6 @@ csc\_sim.atmcs module
    :undoc-members:
    :show-inheritance:
 
-csc\_sim.weatherstation module
----------------------------
-
-.. automodule:: csc_sim.weatherstation
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 csc\_sim.scriptqueue module
 ---------------------------
 
@@ -40,6 +32,14 @@ csc\_sim.testcsc module
 -----------------------
 
 .. automodule:: csc_sim.testcsc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+csc\_sim.weatherstation module
+------------------------------
+
+.. automodule:: csc_sim.weatherstation
    :members:
    :undoc-members:
    :show-inheritance:
