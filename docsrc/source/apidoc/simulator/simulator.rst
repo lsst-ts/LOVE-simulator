@@ -9,8 +9,8 @@ Subpackages
    simulator.atdome
    simulator.atmcs
    simulator.emitters
-   simulator.weatherstation
    simulator.watcher
+   simulator.weatherstation
 
 Submodules
 ----------

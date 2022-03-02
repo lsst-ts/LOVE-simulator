@@ -14,10 +14,11 @@ async def main():
         for atmcs_config in simulator_config['ATMCS']:
             if atmcs_config['source'] == 'command_sim':
                 salindex = None
+                if 'index' in atmcs_config:
+                    salindex = atmcs_config['index']
                 print('ATMCS csc | Launching salindex = {}'.format(salindex))
                 csc = ATMCSSimulator.ATMCSCsc()
                 awaitables.append(csc.done_task)
-                break
         await asyncio.wait(awaitables)
 
 asyncio.run(main())
