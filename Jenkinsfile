@@ -18,7 +18,6 @@ pipeline {
     weatherstationImage = ""
     testCSCImage = ""
     jupyterImage = ""
-    dev_cycle = "c0021.007"
     user_ci = credentials('lsst-io')
     LTD_USERNAME="${user_ci_USR}"
     LTD_PASSWORD="${user_ci_PSW}"
@@ -37,7 +36,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -58,7 +57,7 @@ pipeline {
             }
           }
           imageName = imageName + image_tag
-          image = docker.build(imageName, "--build-arg dev_cycle=${dev_cycle} .")
+          image = docker.build(imageName, "-f docker/Dockerfile .")
         }
       }
     }
@@ -74,7 +73,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -103,7 +102,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -124,7 +123,7 @@ pipeline {
             }
           }
           atcsImageName = atcsImageName + image_tag
-          atcsImage = docker.build(atcsImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-atcs .")
+          atcsImage = docker.build(atcsImageName, "-f docker/Dockerfile-atcs .")
         }
       }
     }
@@ -140,7 +139,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -169,7 +168,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -190,7 +189,7 @@ pipeline {
             }
           }
           mtcsImageName = mtcsImageName + image_tag
-          mtcsImage = docker.build(mtcsImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-mtcs .")
+          mtcsImage = docker.build(mtcsImageName, "-f docker/Dockerfile-mtcs .")
         }
       }
     }
@@ -206,7 +205,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -235,7 +234,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -256,7 +255,7 @@ pipeline {
             }
           }
           testCSCImageName = testCSCImageName + image_tag
-          testCSCImage = docker.build(testCSCImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-testcsc .")
+          testCSCImage = docker.build(testCSCImageName, "-f docker/Dockerfile-testcsc .")
         }
       }
     }
@@ -272,7 +271,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -301,7 +300,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -322,7 +321,7 @@ pipeline {
             }
           }
           scriptqueueImageName = scriptqueueImageName + image_tag
-          scriptqueueImage = docker.build(scriptqueueImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-scriptqueue .")
+          scriptqueueImage = docker.build(scriptqueueImageName, "-f docker/Dockerfile-scriptqueue .")
         }
       }
     }
@@ -338,7 +337,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -367,7 +366,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -388,7 +387,7 @@ pipeline {
             }
           }
           watcherImageName = watcherImageName + image_tag
-          watcherImage = docker.build(watcherImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-watcher .")
+          watcherImage = docker.build(watcherImageName, "-f docker/Dockerfile-watcher .")
         }
       }
     }
@@ -405,7 +404,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -434,7 +433,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -455,7 +454,7 @@ pipeline {
             }
           }
           weatherstationImageName = weatherstationImageName + image_tag
-          weatherstationImage = docker.build(weatherstationImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-weatherstation .")
+          weatherstationImage = docker.build(weatherstationImageName, "-f docker/Dockerfile-weatherstation .")
         }
       }
     }
@@ -472,7 +471,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -499,7 +498,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -520,7 +519,7 @@ pipeline {
             }
           }
           jupyterImageName = jupyterImageName + image_tag
-          jupyterImage = docker.build(jupyterImageName, "--build-arg dev_cycle=${dev_cycle} -f ./Dockerfile-jupyter .")
+          jupyterImage = docker.build(jupyterImageName, "-f docker/Dockerfile-jupyter .")
         }
       }
     }
@@ -535,7 +534,7 @@ pipeline {
           }
         }
         anyOf {
-          branch "master"
+          branch "main"
           branch "develop"
           branch "bugfix/*"
           branch "hotfix/*"
@@ -585,12 +584,12 @@ pipeline {
         build(job: '../LOVE-integration-tools/develop', wait: false)
       }
     }
-    stage("Trigger master deployment") {
+    stage("Trigger main deployment") {
       when {
-        branch "master"
+        branch "main"
       }
       steps {
-        build(job: '../LOVE-integration-tools/master', wait: false)
+        build(job: '../LOVE-integration-tools/main', wait: false)
       }
     }
   }

@@ -3,4 +3,5 @@ FROM lsstts/develop-env:${dev_cycle}
 
 COPY csc_sim/atcs-setup.sh /home/saluser/atcs-setup.sh
 WORKDIR /home/saluser
+
 ENTRYPOINT ["/home/saluser/atcs-setup.sh"]

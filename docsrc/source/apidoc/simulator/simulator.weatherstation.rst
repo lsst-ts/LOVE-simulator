@@ -1,11 +1,11 @@
 simulator.weatherstation package
-=============================
+================================
 
 Submodules
 ----------
 
 simulator.weatherstation.simulator module
---------------------------------------
+-----------------------------------------
 
 .. automodule:: simulator.weatherstation.simulator
    :members:
