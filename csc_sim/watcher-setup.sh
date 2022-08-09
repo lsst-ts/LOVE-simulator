@@ -8,7 +8,7 @@ if [[ $LSST_DDS_IP != *"."* ]]; then
 fi
 
 #WRITE CONFIG
-cd /home/saluser/repos/ts_config_ocs/Watcher/v1
+cd /home/saluser/repos/ts_config_ocs/Watcher/v2
 echo "rules:
 - classname: Enabled
   configs:
@@ -33,4 +33,4 @@ echo "rules:
 cd /home/saluser/repos/ts_watcher
 setup -r .
 scons install declare
-python /home/saluser/repos/ts_watcher/bin/run_watcher.py
+python /home/saluser/repos/ts_watcher/bin/run_watcher
