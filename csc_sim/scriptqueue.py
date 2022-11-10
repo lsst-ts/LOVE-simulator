@@ -3,7 +3,7 @@ import json
 from lsst.ts import scriptqueue
 
 standardpath = '/home/saluser/repos/ts_scriptqueue/tests/data/standard/'
-externalpath = '/home/saluser/repos/ts_scriptqueue/tests/data/external'
+externalpath = '/home/saluser/repos/ts_scriptqueue/tests/data/external/'
 
 simulator_config_path = '/home/saluser/config/config.json'
 

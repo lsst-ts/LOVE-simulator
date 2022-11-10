@@ -1,5 +1,5 @@
 ARG dev_cycle=develop
-ARG WATCHER_VERSION=v1.4.2
+ARG WATCHER_VERSION=v1.8.0
 
 FROM lsstts/develop-env:${dev_cycle}
 
@@ -11,7 +11,7 @@ RUN source /opt/lsst/software/stack/loadLSST.bash \
     && setup ts_sal -t current \
     && /home/saluser/repos/ts_sal/bin/make_idl_files.py Watcher
 
-RUN git clone --depth 100 https://github.com/lsst-ts/ts_watcher.git  /home/saluser/repos/ts_watcher
+RUN git clone https://github.com/lsst-ts/ts_watcher.git  /home/saluser/repos/ts_watcher
 
 RUN cd /home/saluser/repos/ts_watcher && git checkout ${WATCHER_VERSION}
 ENTRYPOINT ["/bin/bash", "--"]

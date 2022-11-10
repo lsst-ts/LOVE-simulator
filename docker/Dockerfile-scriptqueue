@@ -5,8 +5,8 @@ COPY csc_sim/scriptqueue-setup.sh /home/saluser/scriptqueue-setup.sh
 COPY csc_sim/scriptqueue.py /home/saluser/scriptqueue.py
 COPY config /home/saluser/config
 
-RUN cp -R /home/saluser/repos/ts_standardscripts/scripts/ /home/saluser/repos/ts_scriptqueue/tests/data/standard/scripts/
-RUN cp -R /home/saluser/repos/ts_externalscripts/scripts/ /home/saluser/repos/ts_scriptqueue/tests/data/external/scripts/
+RUN cp -R /home/saluser/repos/ts_standardscripts/python/lsst/ts/standardscripts/ /home/saluser/repos/ts_scriptqueue/tests/data/standard/scripts/
+RUN cp -R /home/saluser/repos/ts_externalscripts/python/lsst/ts/externalscripts/ /home/saluser/repos/ts_scriptqueue/tests/data/external/scripts/
 
 WORKDIR /home/saluser
 ENTRYPOINT ["/home/saluser/scriptqueue-setup.sh"]

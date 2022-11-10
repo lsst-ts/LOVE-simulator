@@ -8,7 +8,7 @@ See the documentation here: https://lsst-ts.github.io/LOVE-simulator/html/index.
 In order to use the LOVE-producer as part of the LOVE system we recommend to use the docker-compose and configuration files provided in the [LOVE-integration-tools](https://github.com/lsst-ts/LOVE-integration-tools) repo. Please follow the instructions there.
 
 ## Local load for development
-We provide a docker image and a docker-compose file in order to load the LOVE-simulator locally for development purposes, i.e. build documentation.
+We provide docker images and a docker-compose file in order to load the LOVE-simulator locally for development purposes, i.e. build documentation.
 
 This docker-compose does not copy the code into the image, but instead it mounts the repository inside the image, this way you can edit the code from outside the docker container with no need to rebuild or restart.
 
@@ -17,13 +17,15 @@ Follow these instructions to run the application in a docker container and get i
 
 1. Launch and get into the container:
 ```
-docker-compose up -d
+cd docker/
+export dev_cycle=develop #Here you can set a specified version of the lsstts/develop-env image
+docker-compose up -d --build
 docker-exec simulator bash
 ```
 
 2. Inside the container:, load the setup and got to love folder
 ```
-source .setup.sh
+source /home/saluser/.setup_dev.sh #Here some configurations will be loaded and you will enter another bash. Press [Ctrl + D] to exit the current console, then the love-producer package will be installed and you can continue with the following step
 cd /usr/src/love
 ```
 

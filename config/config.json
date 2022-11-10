@@ -7,9 +7,11 @@
     {
       "index": 2,
       "source": "command_sim"
-    },
+    }
   ],
-  "WeatherStation": [{ "index": 1, "source": "command_sim" }],
+  "WeatherStation": [
+    { "index": 1, "source": "command_sim" }
+  ],
   "Test": [
     {
       "index": 1,
