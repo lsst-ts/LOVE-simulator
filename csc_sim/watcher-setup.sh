@@ -8,7 +8,8 @@ if [[ $LSST_DDS_IP != *"."* ]]; then
 fi
 
 #WRITE CONFIG
-cd /home/saluser/repos/ts_config_ocs/Watcher/v2
+cd /home/saluser/repos/ts_config_ocs/Watcher/
+version=$(ls | sort -V | tail -n 1)
 echo "rules:
 - classname: Enabled
   configs:
@@ -27,7 +28,7 @@ echo "rules:
   - name: ATDome
   - name: WeatherStation
   - name: GenericCamera
-  - name: ScriptQueue:1" > default.yml
+  - name: ScriptQueue:1" > ./$version/default.yml
 
 #RUN WATCHER
 cd /home/saluser/repos/ts_watcher
