@@ -29,7 +29,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/atcs-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-atcs"
+          changeset "docker/Dockerfile-atcs"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -66,7 +66,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/atcs-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-atcs"
+          changeset "docker/Dockerfile-atcs"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -95,7 +95,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/mtcs-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-mtcs"
+          changeset "docker/Dockerfile-mtcs"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -132,7 +132,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/mtcs-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-mtcs"
+          changeset "docker/Dockerfile-mtcs"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -161,7 +161,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/testcsc-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-testcsc"
+          changeset "docker/Dockerfile-testcsc"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -198,7 +198,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/testcsc-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-testcsc"
+          changeset "docker/Dockerfile-testcsc"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -227,7 +227,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/scriptqueue-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-scriptqueue"
+          changeset "docker/Dockerfile-scriptqueue"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -264,7 +264,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/scriptqueue-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-scriptqueue"
+          changeset "docker/Dockerfile-scriptqueue"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -293,7 +293,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/watcher-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-watcher"
+          changeset "docker/Dockerfile-watcher"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -331,7 +331,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/watcher-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-watcher"
+          changeset "docker/Dockerfile-watcher"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -360,7 +360,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/weatherstation-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-weatherstation"
+          changeset "docker/Dockerfile-weatherstation"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -398,7 +398,7 @@ pipeline {
         anyOf {
           changeset "csc_sim/weatherstation-setup.sh"
           changeset "config/*"
-          changeset "Dockerfile-weatherstation"
+          changeset "docker/Dockerfile-weatherstation"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -425,7 +425,7 @@ pipeline {
       when {
         anyOf {
           changeset "simulator/jupyter.sh"
-          changeset "Dockerfile-jupyter"
+          changeset "docker/Dockerfile-jupyter"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
@@ -461,7 +461,7 @@ pipeline {
       when {
         anyOf {
           changeset "simulator/jupyter.sh"
-          changeset "Dockerfile-jupyter"
+          changeset "docker/Dockerfile-jupyter"
           changeset "Jenkinsfile"
           expression {
             return currentBuild.number == 1
