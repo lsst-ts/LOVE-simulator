@@ -15,7 +15,10 @@ Babel 2.8.0
 
 BSD 3- Clause License
 Copyright (c) 2013-2023 by the Babel Team.
+charset-normalizer 3.2.0
 
+MIT License
+Copyright (c) 2019 TAHRI Ahmed R.
 Jinja2 2.11.1
 
 BSD-3-Clause License
@@ -102,8 +105,6 @@ All rights reserved.
 imagesize	1.2.0	
 
 MIT License
-The MIT License (MIT)
-----------------------------
 Copyright © 2016 Yoshiki Shibukawa
 
 m2r	0.2.1	
