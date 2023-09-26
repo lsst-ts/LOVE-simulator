@@ -8,6 +8,8 @@ This distribution includes the following code libraries/external tools.
 These are distributed according to the licensing terms governing each
 library:
 
+```
+
 | Name                     | Version       | License                                             |
 |:--------------------------|:---------------|:-----------------------------------------------------|
 | Babel                    | 2.12.1        | BSD License                                         |
@@ -47,6 +49,3 @@ library:
 | sphinxcontrib-serializinghtml | 1.1.3     | UNKNOWN                                             |
 | urllib3                  | 2.0.4         | MIT License                                         |
 | websocket-client         | 0.54.0        | GNU Library or Lesser General Public License (LGPL) |
-
-
-```
