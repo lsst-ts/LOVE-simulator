@@ -2,7 +2,7 @@
 
 This repository contains tools for simulation of a SAL environment. For development and demonstration purposes
 
-See the documentation here: https://lsst-ts.github.io/LOVE-simulator/html/index.html
+See the documentation here: https://love-simulator.lsst.io/
 
 ## Use as part of the LOVE system
 In order to use the LOVE-producer as part of the LOVE system we recommend to use the docker-compose and configuration files provided in the [LOVE-integration-tools](https://github.com/lsst-ts/LOVE-integration-tools) repo. Please follow the instructions there.
