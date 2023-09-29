@@ -493,7 +493,7 @@ pipeline {
         docker {
           alwaysPull true
           image 'lsstts/develop-env:develop'
-          args "-u root --entrypoint=''"
+          args "--entrypoint=''"
         }
       }
       when {
@@ -507,6 +507,7 @@ pipeline {
 
             # Create docs
             cd ./docsrc
+            pip install -r requirements.txt
             sh ./create_docs.sh
             cd ..
 
