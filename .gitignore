@@ -103,3 +103,10 @@ venv.bak/
 .mypy_cache/
 
 .DS_Store
+.pre-commit-config.yaml
+.clang-format
+.flake8
+.isort.cfg
+.mypy.ini
+.ruff.toml
+towncrier.toml
