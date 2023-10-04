@@ -18,6 +18,9 @@ pipeline {
     weatherstationImage = ""
     testCSCImage = ""
     jupyterImage = ""
+    // SAL setup file
+    SAL_SETUP_FILE = "/home/saluser/.setup_dev.sh"
+    // LTD credentials
     user_ci = credentials('lsst-io')
     LTD_USERNAME="${user_ci_USR}"
     LTD_PASSWORD="${user_ci_PSW}"
@@ -490,19 +493,25 @@ pipeline {
         docker {
           alwaysPull true
           image 'lsstts/develop-env:develop'
-          args "-u root --entrypoint=''"
+          args "--entrypoint=''"
         }
       }
       when {
-        anyOf {
-          changeset "docs/*"
-        }
+        branch "main"
+        branch "develop"
       }
       steps {
         script {
-          sh "pwd"
           sh """
-            source /home/saluser/.setup_dev.sh
+            source ${env.SAL_SETUP_FILE}
+
+            # Create docs
+            cd ./docsrc
+            pip install -r requirements.txt
+            sh ./create_docs.sh
+            cd ..
+
+            # Upload docs
             pip install ltd-conveyor
             ltd upload --product love-simulator --git-ref ${GIT_BRANCH} --dir ./docs
           """
