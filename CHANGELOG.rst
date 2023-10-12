@@ -2,6 +2,18 @@
 Version History
 ===============
 
+v5.3.1
+------
+
+* Add misssing CHANGELOG `<https://github.com/lsst-ts/LOVE-simulator/pull/70>`_
+* Hotfix for Jenkinsfile `<https://github.com/lsst-ts/LOVE-simulator/pull/69>`_
+* Add ts_pre_commit_conf `<https://github.com/lsst-ts/LOVE-simulator/pull/68>`_
+* Move docs creation to CI `<https://github.com/lsst-ts/LOVE-simulator/pull/67>`_
+* Improve copyright file `<https://github.com/lsst-ts/LOVE-simulator/pull/66>`_
+* Bump gevent from 1.3.7 to 23.9.1 in /simulator `<https://github.com/lsst-ts/LOVE-simulator/pull/65>`_
+* LOVE License `<https://github.com/lsst-ts/LOVE-simulator/pull/64>`_
+* Update Watcher and WeatherStation sims configurations `<https://github.com/lsst-ts/LOVE-simulator/pull/63>`_
+
 v5.3.0
 ------
 
