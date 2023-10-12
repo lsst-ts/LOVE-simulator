@@ -2,7 +2,7 @@ ARG dev_cycle=develop
 ARG WEATHERSTATION_VERSION=v1.1.1
 FROM lsstts/develop-env:${dev_cycle}
 
-COPY environment_setup.sh /home/saluser/setup.sh
+COPY csc_sim/weatherstation_configurations.sh /home/saluser/setup.sh
 COPY csc_sim/weatherstation-setup.sh /home/saluser/weatherstation-setup.sh
 COPY csc_sim/weatherstation.py /home/saluser/weatherstation.py
 COPY config /home/saluser/config

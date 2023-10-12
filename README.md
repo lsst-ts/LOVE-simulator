@@ -2,7 +2,7 @@
 
 This repository contains tools for simulation of a SAL environment. For development and demonstration purposes
 
-See the documentation here: https://lsst-ts.github.io/LOVE-simulator/html/index.html
+See the documentation here: https://love-simulator.lsst.io/
 
 ## Use as part of the LOVE system
 In order to use the LOVE-producer as part of the LOVE system we recommend to use the docker-compose and configuration files provided in the [LOVE-integration-tools](https://github.com/lsst-ts/LOVE-integration-tools) repo. Please follow the instructions there.
@@ -37,16 +37,11 @@ cd docsrc
 ```
 
 ### Linting & Formatting
-In order to maintaing code linting and formatting we use `pre-commit` that runs **Flake8** (https://flake8.pycqa.org/) and **Black** (https://github.com/psf/black) using Git Hooks. To enable this you have to:
+This code uses pre-commit to maintain `black` formatting, `isort` and `flake8` compliance. To enable this, run the following commands once (the first removes the previous pre-commit hook):
 
-1. Install `pre-commit` in your local development environment:
 ```
-pip install pre-commit
-```
-
-2. Set up the git hook scripts running:
-```
-pre-commit install
+git config --unset-all core.hooksPath
+generate_pre_commit_conf
 ```
 
-3. Start developing! Linter and Formatter will be executed on every commit you make
+For more details on how to use `generate_pre_commit_conf` please follow: https://tssw-developer.lsst.io/procedures/pre_commit.html#ts-pre-commit-conf.
