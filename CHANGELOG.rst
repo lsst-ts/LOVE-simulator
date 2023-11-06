@@ -2,6 +2,11 @@
 Version History
 ===============
 
+v5.3.2
+------
+
+* Add missing changelog checker action `<https://github.com/lsst-ts/LOVE-simulator/pull/71>`_
+
 v5.3.1
 ------
 
