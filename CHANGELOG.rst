@@ -5,6 +5,7 @@ Version History
 v5.3.2
 ------
 
+* Remove unused requirements.txt file `<https://github.com/lsst-ts/LOVE-simulator/pull/73>`_
 * Add missing changelog checker action `<https://github.com/lsst-ts/LOVE-simulator/pull/71>`_
 
 v5.3.1
