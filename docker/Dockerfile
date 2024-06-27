@@ -2,8 +2,8 @@ ARG dev_cycle=develop
 FROM lsstts/develop-env:${dev_cycle}
 
 WORKDIR /usr/src/love
-COPY simulator/requirements.txt .
-RUN source /opt/lsst/software/stack/loadLSST.bash && pip install -r requirements.txt
+RUN source /home/saluser/.setup_dev.sh && \
+  pip install gevent greenlet six websocket-client websockets eventlet
 
 COPY . .
 WORKDIR /home/saluser
